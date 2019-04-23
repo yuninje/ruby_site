@@ -25,28 +25,59 @@
 
   <body>
 
-    <nav class="navbar navbar-light bg-light">
-     <span class="navbar-brand mb-0 h1">Navbar</span>
+    <nav class="navbar navbar-dark bg-dark justify-content-center">
+      <span class="navbar-brand mb-0 h1">
+        <%= link_to "Ruby Site", {controller: "home", action: "index"}, class: "nav-link text-white"%>
+      </span>
     </nav>
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">유머</a>
-      </li>
-      <li class="nav-item">
-      
-        <a class="nav-link" href="#">인물</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">게임</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">시사</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">이슈</a>
-      </li>
-    </ul>
+    <nav class="navbar navbar-dark bg-dark justify-content-center ">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <%= link_to "Humor", {controller: "home", action: "humor"}, class: "nav-link text-white"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Game", {controller: "home", action: "game"}, class: "nav-link text-white"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "News", {controller: "home", action: "news"}, class: "nav-link text-white"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Issue", {controller: "home", action: "issue"}, class: "nav-link text-white"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Animal", {controller: "home", action: "animal"}, class: "nav-link text-white"%>
+      </ul>
+    </nav>
+    <div id="wrap">
+      <div id="main" class="container clear-top ">
+        <div class="container-fluid ">
+            <div class="row content justify-content-center">
+                <div class = "col-md-6">
+                  <%= yield %>
+                </div>
 
-    <%= yield %>
+                <div class = "col-md-3">
+                  <%= form_tag("/users/login", method: "get") do%>
+
+                    <%= content_tag(:div, class:"form-group") do -%>
+                      <%= label_tag(:loginID, "ID") %><br>
+                      <%= text_field_tag(:loginID,"", class: "form-control")%>
+                    <% end -%>
+
+                    <%= content_tag(:div, class:"form-group") do -%>
+                      <%= label_tag(:loginPW, "Password") %><br>
+                      <%= text_field_tag(:loginPW,"", class: "form-control")%>
+                    <% end -%>
+
+                    <%= submit_tag("Login", class: "btn btn-primary")%>
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to "New around here? Sign up", {controller: "users", action: "signUp"}, class: "dropdown-item"%>
+                  <%= link_to "Forgot password?", {controller: "users", action: "forgotPW"}, class: "dropdown-item"%>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
