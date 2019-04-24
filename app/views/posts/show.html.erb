@@ -1,15 +1,15 @@
 <div class="col-lg-8">
     <!-- Title -->
-    <h1 class="mt-4"> @Post Title</h1>
+    <h1 class="mt-4"> <%= @post.title %> </h1>
 
     <p class="lead text-right">
-        by  @Author     
+        by  <%= @post.author %>   
     </p>
-    <p class="text-right" > @Date </p>
+    <p class="text-right" > <%= @post.created_at.localtime.strftime("%Y-%m-%d %H:%M")%> </p>
 
     <hr>
 
-    @text
+    <%= @post.text %>
 
     <hr>
 

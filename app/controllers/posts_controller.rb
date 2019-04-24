@@ -1,4 +1,10 @@
 class PostsController < ApplicationController
+  def index
+    @genre = params[:genre]
+    @page = 1
+    @posts = Post.all
+  end
+  
   def new
   end
 
@@ -21,6 +27,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
   end
 
   def success

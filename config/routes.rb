@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :posts
+  resources :users
+  resources :home
   post 'posts/new'
   post 'posts/create'
   get 'posts/delete'
@@ -7,6 +10,7 @@ Rails.application.routes.draw do
   get 'posts/show'
   get 'posts/success'
   get 'posts/fail'
+  get 'posts/index'
 
   
   get 'users/login'
@@ -17,11 +21,6 @@ Rails.application.routes.draw do
   get 'users/new'
   
   get 'home/index'
-  get 'home/humor'
-  get 'home/game'
-  get 'home/news'
-  get 'home/issue'
-  get 'home/animal'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
