@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     @post.text = params[:text]
 
     if @post.save
-      redirect_to "/posts/success"
+      redirect_to post_path(@post.id)
     else
       redirect_to "/posts/fail"
     end
@@ -28,6 +28,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post.view_count += 1
+    @post.save
   end
 
   def success
