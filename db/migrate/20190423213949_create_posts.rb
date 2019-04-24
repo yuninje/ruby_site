@@ -6,6 +6,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :author
       t.string :genre
       t.timestamps
+      t.integer :view_count
     end
   end
 end

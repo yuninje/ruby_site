@@ -3,9 +3,11 @@ class HomeController < ApplicationController
   end
 
   def humor
+    
   end
 
   def game
+    @posts = Post.all
   end
 
   def news
@@ -15,6 +17,10 @@ class HomeController < ApplicationController
   end
 
   def animal
+  end
+
+  def genre
+    @posts = Post.all
   end
 
 end

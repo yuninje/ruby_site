@@ -5,18 +5,22 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
-      <th scope="col">Date</th>
       <th scope="col">Author</th>
+      <th scope="col">Date</th>
+      <th scope="col">View </th>
     </tr>
   </thead>
   <tbody>
     
-    <tr>
-      <th scope="row">1</th>
-      <td><%= link_to "@post_title", {controller: "posts", action: "show"}%></td>
-      <td>@Date</td>
-      <td>@Author</td>
-    </tr>
+    <% @posts.each do |post| %>
+      <tr>
+        <th scope="row"> <%= post.id %></th>
+        <td><%= link_to post.title, {controller: "posts", action: "show"}%></td>
+        <td> <%= post.author %> </td>
+        <td><%= post.created_at.localtime.strftime("%Y-%m-%d") %> </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <%= button_to("New", :action => "new" , :controller => "posts") %>
