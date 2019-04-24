@@ -48,36 +48,40 @@
           <%= link_to "Animal", {controller: "home", action: "animal"}, class: "nav-link text-white"%>
       </ul>
     </nav>
-    <div id="wrap">
-      <div id="main" class="container clear-top ">
-        <div class="container-fluid ">
-            <div class="row content justify-content-center">
-                <div class = "col-md-6">
-                  <%= yield %>
-                </div>
 
-                <div class = "col-md-3">
-                  <%= form_tag("/users/login", method: "get") do%>
 
-                    <%= content_tag(:div, class:"form-group") do -%>
-                      <%= label_tag(:loginID, "ID") %><br>
-                      <%= text_field_tag(:loginID,"", class: "form-control")%>
-                    <% end -%>
+    <div class = "container">
+      <div class="row">
+        <div class = "col-lg-8">
+          <%= yield %>
+        </div>
 
-                    <%= content_tag(:div, class:"form-group") do -%>
-                      <%= label_tag(:loginPW, "Password") %><br>
-                      <%= text_field_tag(:loginPW,"", class: "form-control")%>
-                    <% end -%>
+        <div class = "col-lg-4">
+          <%= form_tag("/users/login", method: "get") do%>
 
-                    <%= submit_tag("Login", class: "btn btn-primary")%>
-                  <% end %>
-                  <div class="dropdown-divider"></div>
-                  <%= link_to "New around here? Sign up", {controller: "users", action: "signUp"}, class: "dropdown-item"%>
-                  <%= link_to "Forgot password?", {controller: "users", action: "forgotPW"}, class: "dropdown-item"%>
-                </div>
-            </div>
+            <%= content_tag(:div, class:"form-group") do -%>
+              <%= label_tag(:loginID, "ID") %><br>
+              <%= text_field_tag(:loginID,"", class: "form-control")%>
+            <% end -%>
+
+            <%= content_tag(:div, class:"form-group") do -%>
+              <%= label_tag(:loginPW, "Password") %><br>
+              <%= text_field_tag(:loginPW,"", class: "form-control")%>
+            <% end -%>
+
+            <%= submit_tag("Login", class: "btn btn-primary")%>
+          <% end %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "New around here? Sign up", {controller: "users", action: "signUp"}, class: "dropdown-item"%>
+          <%= link_to "Forgot password?", {controller: "users", action: "forgotPW"}, class: "dropdown-item"%>
         </div>
       </div>
     </div>
+
+    <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright © Inje Website 2019</p>
+    </div>
+  </footer>
   </body>
 </html>

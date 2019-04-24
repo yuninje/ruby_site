@@ -1,0 +1,22 @@
+<h1> genre </h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Date</th>
+      <th scope="col">Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <th scope="row">1</th>
+      <td><%= link_to "@post_title", {controller: "posts", action: "show"}%></td>
+      <td>@Date</td>
+      <td>@Author</td>
+    </tr>
+</table>
+
+<%= button_to("New", :action => "new" , :controller => "posts") %>
