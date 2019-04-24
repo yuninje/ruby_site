@@ -1,2 +1,21 @@
 <h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+
+<%= form_with(model: @post, local: true) do |form| %>
+    <%= content_tag(:div, class:"form-group") do -%>
+        <%= form.label :genre %><br>
+        <%= select_tag(:genre, options_for_select([['Humor','humor'],
+            ['Game','game'], ['News','news'], ['Issue','issue'], ['Animal','animal']], @post.genre)) %>
+    <% end -%>
+
+    <%= content_tag(:div, class:"form-group") do -%>
+        <%= form.label :title %><br>
+        <%= form.text_field :title , class: "form-control"%>
+    <% end -%>
+
+    <%= content_tag(:div, class:"form-group") do -%>
+        <%= form.label :text %><br>
+        <%= form.text_area :text , class: "form-control"%>
+    <% end -%>
+
+    <%= form.submit %>
+<% end %>

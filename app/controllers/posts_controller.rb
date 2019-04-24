@@ -1,33 +1,41 @@
 class PostsController < ApplicationController
+  @@genre = ""
   def index
-    @genre = params[:genre]
+    @@genre = params[:genre]
+    @genre = @@genre
     @page = 1
-    @posts = Post.all
+    @posts = Post.where(genre: @@genre).order(id: :desc)
   end
   
   def new
+    @genre = @@genre
   end
 
   def create
     @post = Post.new
+    @post.genre = params[:genre]
     @post.title = params[:title]
     @post.text = params[:text]
 
     if @post.save
-      redirect_to post_path(@post.id)
+      redirect_to :controller => "posts", :action => "show", :id => @post.id
     else
-      redirect_to "/posts/fail"
+      redirect_to :controller => "posts", :action => "fail"
     end
-  end
-
-  def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-
   end
 
   def edit
     @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+
+    if @post.update(post_params)
+      redirect_to :controller => "posts", :action => "show", :id => @post.id
+    else
+      redirect_to :controller => "posts", :action => "fail"
+    end
   end
 
   def show
@@ -36,6 +44,17 @@ class PostsController < ApplicationController
     @post.save
   end
 
-  def success
+  def fail
   end
+
+  # 삭제가 안돼ㅐㅐㅐㅐㅐㅐㅐㅐ
+  def destroy
+    @post = Post.find(params[:id])
+    @post.delete
+  end
+
+  private
+    def post_params
+      params.require(:post).permit(:title, :text, :genre)
+    end
 end

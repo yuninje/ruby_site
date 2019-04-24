@@ -1,6 +1,7 @@
 <div class="col-lg-8">
     <!-- Title -->
     <h1 class="mt-4"> <%= @post.title %> </h1>
+    <p class="text-right"> <%= @post.genre %> </p>
 
     <p class="lead text-right">
         by  <%= @post.author %>   
@@ -35,6 +36,9 @@
         </div>
     </div>
 </div>
-<%= button_to("edit", :action => "edit" , :controller => "posts", :id => @post.id) %>
-<%= button_to("delete", :action => "destroy" , :controller => "posts", :id => @post.id) %>
-<%= button_to("list", :action => "index" , :controller => "posts") %>
+<%= link_to "edit", { :controller => "posts", :action => "edit" , :id => @post.id} %>
+<!-- 삭제가 죽어도 안돼ㅐㅐㅐㅐㅐㅐ -->
+<%= link_to "Destroy", {:controller => "posts", :action => "destroy", :id => @post.id},
+              :method => "delete",
+              data: { confirm: 'Are you sure?' } %></td>
+<%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre} %>
