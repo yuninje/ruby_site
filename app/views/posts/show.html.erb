@@ -14,28 +14,32 @@
 
     <hr>
 
-    <!-- Comments Form -->
+    <!-- Add Comments Form -->
     <div class="card my-4">
         <h5 class="card-header">Leave a Comment:</h5>
         <div class="card-body">
-        <form>
-            <div class="form-group">
-            <textarea class="form-control" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <%= form_with(model: [ @post, @post.comments.build ], local: true ) do |form|%>
+            <%= content_tag(:div, class:"form-group") do -%>
+                <%= form.text_area :body, class: "form-control", rows: "3"%>
+            <% end%>
+            <%= form.submit "Comment", :class => "btn btn-primary"%>
+        <% end%>
         </div>
     </div>
 
-    <!-- Single Comment -->
-    <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-        <div class="media-body">
-            <h5 class="mt-0"> @Comment Author </h5>
-            @comment Text
-        </div>
-    </div>
+    <!-- Comment List -->
+    <% @post.comments.includes(:post).each do |comment| %>
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0"> <%= comment.commenter%> </h5>
+                    <%= comment.body%>
+                </div>
+            </div>
+    <% end %>
 </div>
+
+
 <%= link_to "edit", { :controller => "posts", :action => "edit" , :id => @post.id} %>
 <!-- 삭제가 죽어도 안돼ㅐㅐㅐㅐㅐㅐ -->
 <%= link_to "Destroy", {:controller => "posts", :action => "destroy", :id => @post.id},
