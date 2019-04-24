@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## THINGS TO DO
+ * Login
+ * SignUp
+ * ForgotPW
+ * Post - image, video
+ * Search
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+## SETTING
+ * Ruby version : ruby 2.5.5p157 (2019-03-15 revision 67260) [x64-mingw32]
 
-* Configuration
+ * Rails version : Rails 5.2.3
 
-* Database creation
+ * Sqlite3 : https://github.com/larskanis/sqlite3-ruby
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ * FrontEnd Framework : Bootstrap
