@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_213949) do
     t.string "genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "count", default: 0, null: false
   end
 
 end

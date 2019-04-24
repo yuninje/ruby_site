@@ -5,7 +5,6 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.text :text
       t.string :author
       t.string :genre
-
       t.timestamps
     end
   end
