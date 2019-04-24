@@ -20,10 +20,14 @@ class PostsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+
   end
 
   def edit
+    @post = Post.find(params[:id])
   end
 
   def show

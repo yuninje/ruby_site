@@ -35,3 +35,6 @@
         </div>
     </div>
 </div>
+<%= button_to("edit", :action => "edit" , :controller => "posts", :id => @post.id) %>
+<%= button_to("delete", :action => "destroy" , :controller => "posts", :id => @post.id) %>
+<%= button_to("list", :action => "index" , :controller => "posts") %>

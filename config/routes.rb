@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :home
   post 'posts/new'
   post 'posts/create'
-  get 'posts/delete'
+  post 'posts/destroy'
   get 'posts/edit'
   get 'posts/show'
   get 'posts/success'
