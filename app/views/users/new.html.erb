@@ -2,20 +2,25 @@
 
  <%= form_tag("/users/create", method: "post") do%>
 
-            <%= content_tag(:div, class:"form-group") do -%>
-              <%= label_tag(:userID, "ID") %><br>
-              <%= text_field_tag(:userID,"", class: "form-control")%>
-            <% end -%>
+  <%= content_tag(:div, class:"form-group") do -%>
+    <%= label_tag(:user_id, "ID") %><br>
+    <%= text_field_tag(:user_id,"", class: "form-control")%>
+  <% end -%>
 
-            <%= content_tag(:div, class:"form-group") do -%>
-              <%= label_tag(:userPW, "Password") %><br>
-              <%= password_field_tag(:userPW,"", class: "form-control")%>
-            <% end -%>
+  <%= content_tag(:div, class:"form-group") do -%>
+    <%= label_tag(:user_password, "Password") %><br>
+    <%= password_field_tag(:user_password,"", class: "form-control")%>
+  <% end -%>
 
-            <%= content_tag(:div, class:"form-group") do -%>
-              <%= label_tag(:userName, "name") %><br>
-              <%= text_field_tag(:userName,"", class: "form-control")%>
-            <% end -%>
+  <%= content_tag(:div, class:"form-group") do -%>
+    <%= label_tag(:user_password_confirmation, "Password confirmation") %><br>
+    <%= password_field_tag(:user_password_confirmation,"", class: "form-control")%>
+  <% end -%>
 
-            <%= submit_tag("create", class: "btn btn-primary")%>
-          <% end %>
+  <%= content_tag(:div, class:"form-group") do -%>
+    <%= label_tag(:user_name, "name") %><br>
+    <%= text_field_tag(:user_name,"", class: "form-control")%>
+  <% end -%>
+
+  <%= submit_tag("create", class: "btn btn-primary")%>
+<% end %>

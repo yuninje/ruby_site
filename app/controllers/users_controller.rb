@@ -9,16 +9,11 @@ class UsersController < ApplicationController
   end
 
   def create # 데이터베이스에 생성
-    @user = User.new
-    @user.userID = params[:userID]
-    @user.userPW = params[:userPW]
-    @user.userName = params[:userName]
-    if @user.save
-      redirect_to :controller => "users", :action => "success"
-    else
-      redirect_to :controller => "users", :action => "fail"
-    end 
-
+    User.create(name: params[:user_name],
+      user_id: params[:user_id],
+      password: params[:user_password],
+      password_confirmation: params[:user_password_confirmation])
+    redirect_to :controller => "home", :action => "index"
   end
 
   def logout
