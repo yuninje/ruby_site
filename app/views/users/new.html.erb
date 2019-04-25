@@ -1,2 +1,21 @@
 <h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+
+ <%= form_tag("/users/create", method: "post") do%>
+
+            <%= content_tag(:div, class:"form-group") do -%>
+              <%= label_tag(:userID, "ID") %><br>
+              <%= text_field_tag(:userID,"", class: "form-control")%>
+            <% end -%>
+
+            <%= content_tag(:div, class:"form-group") do -%>
+              <%= label_tag(:userPW, "Password") %><br>
+              <%= password_field_tag(:userPW,"", class: "form-control")%>
+            <% end -%>
+
+            <%= content_tag(:div, class:"form-group") do -%>
+              <%= label_tag(:userName, "name") %><br>
+              <%= text_field_tag(:userName,"", class: "form-control")%>
+            <% end -%>
+
+            <%= submit_tag("create", class: "btn btn-primary")%>
+          <% end %>

@@ -72,8 +72,8 @@
             <%= submit_tag("Login", class: "btn btn-primary")%>
           <% end %>
           <div class="dropdown-divider"></div>
-          <%= link_to "New around here? Sign up", {controller: "users", action: "signUp"}, class: "dropdown-item"%>
-          <%= link_to "Forgot password?", {controller: "users", action: "forgotPW"}, class: "dropdown-item"%>
+          <%= link_to "New around here? Sign up", {:controller => "users", :action => "new"}, class: "dropdown-item"%>
+          <%= link_to "Forgot password?", {:controller => "users", :action => "forgotPW"}, class: "dropdown-item"%>
         </div>
       </div>
     </div>

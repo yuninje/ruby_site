@@ -1,11 +1,13 @@
 class PostsController < ApplicationController
   @@genre = ""
+
   def index
     @@genre = params[:genre]
     @genre = @@genre
     @page = 1
     @posts = Post.where(genre: @@genre).order(id: :desc)
   end
+
   
   def new
     @genre = @@genre
@@ -44,13 +46,12 @@ class PostsController < ApplicationController
     @post.save
   end
 
-  def fail
-  end
-
-  # 삭제가 안돼ㅐㅐㅐㅐㅐㅐㅐㅐ
   def destroy
     @post = Post.find(params[:id])
-    @post.delete
+    @post.destroy
+  end
+  
+  def fail
   end
 
   private

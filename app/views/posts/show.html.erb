@@ -1,13 +1,12 @@
 <div class="col-lg-8">
     <!-- Title -->
-    <h1 class="mt-4"> <%= @post.title %> </h1>
-    <p class="text-right"> <%= @post.genre %> </p>
+     <h3> <%= @post.genre %> </h3>
+     <h1 class="mt-4 text-center" > <%= @post.title %> </h1>
 
     <p class="lead text-right">
         by  <%= @post.author %>   
     </p>
     <p class="text-right" > <%= @post.created_at.localtime.strftime("%Y-%m-%d %H:%M")%> </p>
-
     <hr>
 
     <%= @post.text %>
@@ -29,13 +28,13 @@
 
     <!-- Comment List -->
     <% @post.comments.includes(:post).each do |comment| %>
-            <div class="media mb-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                    <h5 class="mt-0"> <%= comment.commenter%> </h5>
-                    <%= comment.body%>
-                </div>
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                    <h5 class="mt-0 push-left" > <%= comment.commenter%></h5>
+                <%= comment.body%>
             </div>
+        </div>
     <% end %>
 </div>
 
@@ -44,5 +43,5 @@
 <!-- 삭제가 죽어도 안돼ㅐㅐㅐㅐㅐㅐ -->
 <%= link_to "Destroy", {:controller => "posts", :action => "destroy", :id => @post.id},
               :method => "delete",
-              data: { confirm: 'Are you sure?' } %></td>
+              data: { confirm: 'Are you sure?' } %>
 <%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre} %>

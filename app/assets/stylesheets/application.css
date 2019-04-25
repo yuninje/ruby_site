@@ -35,4 +35,7 @@
     padding-top:20px;
   } 
 
-  
+  .inline-headers h2, .inline-headers h4 {
+    display: inline-block;
+    vertical-align: baseline;
+  }
