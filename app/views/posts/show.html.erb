@@ -4,7 +4,7 @@
      <h1 class="mt-4 text-center" > <%= @post.title %> </h1>
 
     <p class="lead text-right">
-        by  <%= @post.author %>   
+        by  <%= User.find(@post.author_id).user_id %>   
     </p>
     <p class="text-right" > <%= @post.created_at.localtime.strftime("%Y-%m-%d %H:%M")%> </p>
     <hr>
@@ -14,34 +14,37 @@
     <hr>
 
     <!-- Add Comments Form -->
-    <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
-        <div class="card-body">
-        <%= form_with(model: [ @post, @post.comments.build ], local: true ) do |form|%>
-            <%= content_tag(:div, class:"form-group") do -%>
-                <%= form.text_area :body, class: "form-control", rows: "3"%>
+    <% if current_user%>
+        <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+            <%= form_with(model: [ @post, @post.comments.build ], local: true ) do |form|%>
+                <%= content_tag(:div, class:"form-group") do -%>
+                    <%= form.text_area :body, class: "form-control", rows: "3"%>
+                <% end%>
+                <%= form.submit "Comment", :class => "btn btn-primary"%>
             <% end%>
-            <%= form.submit "Comment", :class => "btn btn-primary"%>
-        <% end%>
+            </div>
         </div>
-    </div>
+    <%end%>
 
     <!-- Comment List -->
     <% @post.comments.includes(:post).each do |comment| %>
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
-                    <h5 class="mt-0 push-left" > <%= comment.commenter%></h5>
+                    <h5 class="mt-0 push-left" > <%= User.find(comment.commenter_id).user_id%></h5>
                 <%= comment.body%>
             </div>
         </div>
     <% end %>
 </div>
 
-
-<%= link_to "edit", { :controller => "posts", :action => "edit" , :id => @post.id} %>
-<!-- 삭제가 죽어도 안돼ㅐㅐㅐㅐㅐㅐ -->
-<%= link_to "Destroy", {:controller => "posts", :action => "destroy", :id => @post.id},
-              :method => "delete",
-              data: { confirm: 'Are you sure?' } %>
+<% if @post.author_id == current_user.id%>
+    <%= link_to "edit", { :controller => "posts", :action => "edit" , :id => @post.id} %>
+    <!-- 삭제가 죽어도 안돼ㅐㅐㅐㅐㅐㅐ -->
+    <%= link_to "Destroy", {:controller => "posts", :action => "destroy", :id => @post.id},
+                 :method => "delete",
+                 data: { confirm: 'Are you sure?' } %>
+<% end %>
 <%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre} %>

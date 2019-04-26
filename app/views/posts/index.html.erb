@@ -16,12 +16,13 @@
       <tr>
         <th scope="col" class="text-center"> <%= post.id %></th>
         <td scope="col" class="text-center"> <%= link_to post.title, { controller: "posts", action: "show", id: post.id }%></td>
-        <td scope="col" class="text-center"> <%= post.author %> </td>
+        <td scope="col" class="text-center"> <%=  User.find(post.author_id).user_id %> </td>
         <td scope="col" class="text-center"> <%= post.created_at.localtime.strftime("%Y-%m-%d") %> </td>
         <td scope="col" class="text-center"> <%= post.view_count %> </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to "New", {:controller => "posts", :action => "new"}%>
+<% if current_user %>
+  <%= link_to "New", {:controller => "posts", :action => "new"}%>
+<% end%>

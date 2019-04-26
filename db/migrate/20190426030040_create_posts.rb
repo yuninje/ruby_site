@@ -3,10 +3,10 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     create_table :posts do |t|
       t.string :title
       t.text :text
-      t.string :author
+      t.integer :author_id
       t.string :genre
+      t.integer :view_count, default: 0
       t.timestamps
-      t.integer :view_count
     end
   end
 end
