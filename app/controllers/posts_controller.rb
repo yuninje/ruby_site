@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     @@genre = params[:genre]
     @genre = @@genre
     @page = 1
-    @posts = Post.where(genre: @@genre).order(id: :desc)
+    @posts = Post.where(:genre => @@genre).order(:id => :desc)
   end
 
   
@@ -18,34 +18,38 @@ class PostsController < ApplicationController
       title: params[:title],
       text: params[:text],
       author_id: current_user.id)
-    redirect_to :controller => "posts", :action => "show", :id => @post.id
+    redirect_to :controller => "posts", :action => "show", :post_id => @post.id
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:post_id])
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:post_id])
 
     if @post.update(post_params)
-      redirect_to :controller => "posts", :action => "show", :id => @post.id
+      redirect_to :controller => "posts", :action => "show", :post_id => @post.id
     else
       redirect_to :controller => "home", :action => "index", :str => "post update fail"
     end
   end
 
+  def destroy
+    @post = Post.find(params[:post_id])
+    @post.destroy
+
+    redirect_to :controller => "home", :action => "index", :str => "destroy 성공"
+  end
+
   def show
-    @post = Post.find(params[:id])
-    @comments = Comment.where(post_id: params[:id])
+    @post = Post.find(params[:post_id])
+    @comments = Comment.where(post_id: params[:post_id])
     @post.view_count += 1
     @post.save
   end
 
-  def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-  end
+  
   
   def fail
   end
