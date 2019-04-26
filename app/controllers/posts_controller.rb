@@ -31,12 +31,13 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to :controller => "posts", :action => "show", :id => @post.id
     else
-      redirect_to :controller => "posts", :action => "fail"
+      redirect_to :controller => "home", :action => "index", :str => "post update fail"
     end
   end
 
   def show
     @post = Post.find(params[:id])
+    @comments = Comment.where(post_id: params[:id])
     @post.view_count += 1
     @post.save
   end

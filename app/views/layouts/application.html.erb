@@ -27,25 +27,25 @@
 
     <nav class="navbar navbar-dark bg-dark justify-content-center">
       <span class="navbar-brand mb-0 h1">
-        <%= link_to "Ruby Site", {controller: "home", action: "index"}, class: "nav-link text-white"%>
+        <%= link_to "Ruby Site", { :controller => "home", :action => "index"}, :class => "nav-link text-white"%>
       </span>
     </nav>
     <nav class="navbar navbar-dark bg-dark justify-content-center ">
       <ul class="nav justify-content-center">
         <li class="nav-item">
-          <%= link_to "Humor", {:controller => "posts", :action => "index", :genre => "humor"}, class: "nav-link text-white"%>
+          <%= link_to "Humor", { :controller => "posts", :action => "index", :genre => "humor"}, :class => "nav-link text-white"%>
         </li>
         <li class="nav-item">
-          <%= link_to "Game", {controller: "posts", action: "index", :genre => "game"}, class: "nav-link text-white"%>
+          <%= link_to "Game", { :controller => "posts", :action => "index", :genre => "game"}, :class => "nav-link text-white"%>
         </li>
         <li class="nav-item">
-          <%= link_to "News", {controller: "posts", action: "index", :genre => "news"}, class: "nav-link text-white"%>
+          <%= link_to "News", { :controller => "posts", :action => "index", :genre => "news"}, :class => "nav-link text-white"%>
         </li>
         <li class="nav-item">
-          <%= link_to "Issue", {controller: "posts", action: "index", :genre => "issue"}, class: "nav-link text-white"%>
+          <%= link_to "Issue", { :controller => "posts", :action => "index", :genre => "issue"}, :class => "nav-link text-white"%>
         </li>
         <li class="nav-item">
-          <%= link_to "Animal", {controller: "posts", action: "index", :genre => "animal"}, class: "nav-link text-white"%>
+          <%= link_to "Animal", { :controller => "posts", :action => "index", :genre => "animal"}, :class => "nav-link text-white"%>
       </ul>
     </nav>
 
@@ -64,17 +64,17 @@
           <% else %>
             <%= form_tag '/login', method: :post do%>
 
-              <%= content_tag(:div, class:"form-group") do -%>
+              <%= content_tag(:div, :class => "form-group") do -%>
                 <%= label_tag(:loginID, "ID") %><br>
-                <%= text_field_tag(:loginID,"", class: "form-control")%>
+                <%= text_field_tag(:loginID,"", :class => "form-control")%>
               <% end -%>
 
-              <%= content_tag(:div, class:"form-group") do -%>
+              <%= content_tag(:div, :class => "form-group") do -%>
                 <%= label_tag(:loginPW, "Password") %><br>
-                <%= password_field_tag(:loginPW,"", class: "form-control")%>
+                <%= password_field_tag(:loginPW,"", :class => "form-control")%>
               <% end -%>
 
-              <%= submit_tag("Login", class: "btn btn-primary")%>
+              <%= submit_tag("Login", :class => "btn btn-primary")%>
             <% end %>
             <div class="dropdown-divider"></div>
             <%= link_to "New around here? Sign up", {:controller => "users", :action => "new"}, class: "dropdown-item"%>

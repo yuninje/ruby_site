@@ -3,7 +3,7 @@ class CreateComments < ActiveRecord::Migration[5.2]
     create_table :comments do |t|
       t.integer :commenter_id
       t.text :body
-      t.references :post, foregin_key: true
+      t.integer :post_id
       t.timestamps
     end
   end

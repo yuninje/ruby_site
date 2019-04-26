@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-  resources :posts do
-    resources :comments
-  end
+  resources :posts
+  resources :comments
   resources :users
+  
   root 'home#index'
 end
