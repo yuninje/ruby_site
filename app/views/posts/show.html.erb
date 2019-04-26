@@ -55,4 +55,4 @@
               :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <% end %>
 <% end %>
-<%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre} %>
+<%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre, :page => @before_page} %>

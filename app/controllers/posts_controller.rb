@@ -1,11 +1,31 @@
 class PostsController < ApplicationController
   @@genre = ""
+  
 
   def index
+    @post_per_page = 2
+    @page_per_sheet = 3
+    
     @@genre = params[:genre]
     @genre = @@genre
-    @page = 1
-    @posts = Post.where(:genre => @@genre).order(:id => :desc)
+    @page = params[:page]
+    offset = (@page.to_i-1) * @post_per_page
+    
+    @first_page = (@page.to_i-1)/@page_per_sheet*@page_per_sheet+1
+    @last_page =   (@page.to_i-1)/@page_per_sheet*@page_per_sheet+@page_per_sheet
+    total_post = Post.where(:genre => @@genre).count
+    
+    if total_post.to_i % @post_per_page == 0
+      @total_page = total_post.to_i/@post_per_page
+    else
+      @total_page = total_post.to_i/@post_per_page+1
+    end
+
+    if @total_page <= @last_page.to_i
+      @last_page = @total_page
+    end
+
+    @posts = Post.where(:genre => @@genre).limit(@post_per_page).offset(offset).order(:id => :desc)
   end
 
   
@@ -44,14 +64,10 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:post_id])
+    @before_page = params[:before_page]
     @comments = Comment.where(post_id: params[:post_id])
     @post.view_count += 1
     @post.save
-  end
-
-  
-  
-  def fail
   end
 
   private
