@@ -1,12 +1,10 @@
 # README
+ruby 언어와 ruby on rails 프레임워크를 처음 접하여 만들어본 게시판 사이트입니다.
 
-## THINGS TO DO
- * Login
- * SignUp
- * ForgotPW
+## 남은 과제
  * Post - image, video
  * Search
-
+ 
 
 
 ## SETTING
