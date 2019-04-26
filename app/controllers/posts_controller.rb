@@ -14,16 +14,19 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new
-    @post.genre = params[:genre]
-    @post.title = params[:title]
-    @post.text = params[:text]
-
-    if @post.save
-      redirect_to :controller => "posts", :action => "show", :id => @post.id
-    else
-      redirect_to :controller => "posts", :action => "fail"
-    end
+    @post = Post.create(genre: params[:genre],
+      title: params[:title],
+      text: params[:text])
+    redirect_to :controller => "posts", :action => "show", :id => @post.id
+    # @post = Post.new
+    # @post.genre = params[:genre]
+    # @post.title = params[:title]
+    # @post.text = params[:text]
+    # if @post.save
+    #   redirect_to :controller => "posts", :action => "show", :id => @post.id
+    # else
+    #   redirect_to :controller => "posts", :action => "fail"
+    # end
   end
 
   def edit
@@ -42,8 +45,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @post.view_count += 1
-    @post.save
+    # @post.view_count += 1
+    # @post.save
   end
 
   def destroy

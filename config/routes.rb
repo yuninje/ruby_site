@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
   
   post 'posts/create'
-  get 'posts/fail'
 
   post 'users/create'
-  get 'users/success'
-  get 'users/fail'
-  get 'users/login'
-  get 'users/logout'
-  get 'users/signIn'
   get 'users/forgotPW'
+
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
 
   resources :posts do
     resources :comments

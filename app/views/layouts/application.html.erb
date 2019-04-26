@@ -57,7 +57,7 @@
         </div>
 
         <div class = "col-lg-4">
-          <%= form_tag("/users/login", method: "get") do%>
+          <%= form_tag '/login', method: :post do%>
 
             <%= content_tag(:div, class:"form-group") do -%>
               <%= label_tag(:loginID, "ID") %><br>
@@ -66,7 +66,7 @@
 
             <%= content_tag(:div, class:"form-group") do -%>
               <%= label_tag(:loginPW, "Password") %><br>
-              <%= text_field_tag(:loginPW,"", class: "form-control")%>
+              <%= password_field_tag(:loginPW,"", class: "form-control")%>
             <% end -%>
 
             <%= submit_tag("Login", class: "btn btn-primary")%>
