@@ -3,19 +3,19 @@
 <%= form_tag(:controller => "posts", :action => "create", :method => "post") do%>
 
     <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag(:genre, "Genre") %><br>
+        <%= label_tag "Genre" %><br>
         <%= select_tag(:genre, options_for_select([['Humor','humor'],
             ['Game','game'], ['News','news'], ['Issue','issue'], ['Animal','animal']], @genre)) %>
     <% end -%>
     
 
     <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag(:title, "Title") %><br>
+        <%= label_tag "Title" %><br>
         <%= text_field_tag(:title,"", :class => "form-control")%>
     <% end -%>
 
     <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag(:text, "Text") %><br>
+        <%= label_tag "Text" %><br>
         <%= text_area_tag(:text,"", :class => "form-control")%>
     <% end -%>
 

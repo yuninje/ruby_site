@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   post 'posts/create'
+  post 'posts/update'
   get 'posts/new'
   get 'posts/index'
   get 'posts/show'

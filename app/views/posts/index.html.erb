@@ -14,7 +14,7 @@
     <% @posts.each do |post| %>
       <tr>
         <th scope="col" class="text-center"> <%= post.id %></th>
-        <td scope="col" class="text-center"> <%= link_to post.title, { :controller => "posts", :action => "show", :post_id => post.id, :before_page => @page }%></td>
+        <td scope="col" class="text-center"> <%= link_to post.title, { :controller => "posts", :action => "show", :post_id => post.id, :page => @page }%></td>
         <td scope="col" class="text-center"> <%=  User.find(post.author_id).user_id %> </td>
         <td scope="col" class="text-center"> <%= post.created_at.localtime.strftime("%Y-%m-%d") %> </td>
         <td scope="col" class="text-center"> <%= post.view_count %> </td>
@@ -27,12 +27,12 @@
 <% end%>
 
 <% if @first_page > 1%>
-<%= link_to "<" , {:controller => "posts", :action => "index", :genre => @genre,:page => @first_page.to_i-@page_per_sheet}%>
+  <%= link_to "<" , {:controller => "posts", :action => "index", :genre => @genre,:page => @first_page.to_i-@page_per_sheet}%>
 <%end%>
 <% for page in @first_page..@last_page%>
-<%= link_to page , {:controller => "posts", :action => "index", :genre => @genre,:page => page}%>
+  <%= link_to page , {:controller => "posts", :action => "index", :genre => @genre,:page => page}%>
 <% end%>
 <% if @last_page < @total_page%>
-<%= link_to ">" , {:controller => "posts", :action => "index", :genre => @genre,:page => @last_page.to_i+1}%>
+  <%= link_to ">" , {:controller => "posts", :action => "index", :genre => @genre,:page => @last_page.to_i+1}%>
 <%end%>
 

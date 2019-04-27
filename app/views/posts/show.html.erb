@@ -18,9 +18,9 @@
         <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
-            <%= form_tag(:controller => "comments", :action => "create", :post_id => @post.id) do %>
+            <%= form_tag(:controller => "comments", :action => "create", :post_id => @post.id, :page => @page) do %>
                 <%= content_tag(:div, :class => "form-group") do -%>
-                    <%= text_area_tag :body, "", :class => "form-control", rows: "3"%>
+                    <%= text_area_tag( :body, "", :class => "form-control", :rows => "3")%>
                 <% end%>
                 <%= submit_tag("Comment", :class => "btn btn-primary")%>
             <% end%>
@@ -39,7 +39,7 @@
                     <a><%= comment.created_at.localtime.strftime("%Y-%m-%d %H:%M")%></a>
                     <% if current_user %>
                         <% if current_user.id == comment.commenter_id%>
-                            <a> <%= link_to "delete", {:controller => "comments", :action => "destroy", :comment_id => comment.id, :post_id => @post.id} %></a>
+                            <a> <%= link_to "delete", {:controller => "comments", :action => "destroy", :comment_id => comment.id, :post_id => @post.id, :page => @page} %></a>
                         <% end%>
                     <%end%>
                 </div>
@@ -50,9 +50,9 @@
 
 <% if current_user%>
     <% if @post.author_id == current_user.id%>
-        <%= link_to "edit", { :controller => "posts", :action => "edit" , :post_id => @post.id} %>
-        <%= link_to "delete", {:controller => "posts", :action => "destroy", :post_id => @post.id},   
+        <%= link_to "edit", { :controller => "posts", :action => "edit" , :post_id => @post.id, :page => @page} %>
+        <%= link_to "delete", {:controller => "posts", :action => "destroy", :post_id => @post.id, :genre => @post.genre, :page => @page},   
               :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <% end %>
 <% end %>
-<%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre, :page => @before_page} %>
+<%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre, :page => @page} %>
