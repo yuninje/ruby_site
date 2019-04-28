@@ -1,0 +1,19 @@
+<!-- genre form -->
+<nav class="navbar navbar-dark bg-dark justify-content-center ">
+    <ul class="nav justify-content-center">
+    <li class="nav-item">
+        <%= link_to "Humor", { :controller => "posts", :action => "index", :genre => "humor", :page => 1}, :class => "nav-link text-white"%>
+    </li>
+    <li class="nav-item">
+        <%= link_to "Game", { :controller => "posts", :action => "index", :genre => "game", :page => 1}, :class => "nav-link text-white"%>
+    </li>
+    <li class="nav-item">
+        <%= link_to "News", { :controller => "posts", :action => "index", :genre => "news", :page => 1}, :class => "nav-link text-white"%>
+    </li>
+    <li class="nav-item">
+        <%= link_to "Issue", { :controller => "posts", :action => "index", :genre => "issue", :page => 1}, :class => "nav-link text-white"%>
+    </li>
+    <li class="nav-item">
+        <%= link_to "Animal", { :controller => "posts", :action => "index", :genre => "animal", :page => 1}, :class => "nav-link text-white"%>
+    </ul>
+</nav>

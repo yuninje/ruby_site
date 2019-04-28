@@ -1,0 +1,25 @@
+<!-- user form -->
+<% if current_user %>
+    id : <%= current_user.user_id%><br>
+    name : <%= current_user.name %><br>
+    <%= link_to "회원정보 변경", {:controller => 'users', :action => 'before_edit'}%><br>
+    <%= link_to "로그아웃", {:controller => 'sessions', :action => 'destroy'} %>
+<% else %>
+    <%= form_tag '/login', method: :post do%>
+
+        <%= content_tag(:div, :class => "form-group") do -%>
+        <%= label_tag(:loginID, "ID") %><br>
+        <%= text_field_tag(:loginID,"", :class => "form-control")%>
+        <% end -%>
+
+        <%= content_tag(:div, :class => "form-group") do -%>
+        <%= label_tag(:loginPW, "Password") %><br>
+        <%= password_field_tag(:loginPW,"", :class => "form-control")%>
+        <% end -%>
+
+        <%= submit_tag("Login", :class => "btn btn-primary")%>
+    <% end %>
+    <div class="dropdown-divider"></div>
+    <%= link_to "New around here? Sign up", {:controller => "users", :action => "new"}, class: "dropdown-item"%>
+    <%= link_to "Forgot password?", {:controller => "users", :action => "forgotPW"}, class: "dropdown-item"%>
+<% end%>

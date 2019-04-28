@@ -14,6 +14,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
     %>
+
     
     <!-- bootstrap css, js-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -24,29 +25,8 @@
 
   <body>
 
-    <nav class="navbar navbar-dark bg-dark justify-content-center">
-      <span class="navbar-brand mb-0 h1">
-        <%= link_to "Ruby Site", { :controller => "home", :action => "index"}, :class => "nav-link text-white"%>
-      </span>
-    </nav>
-    <nav class="navbar navbar-dark bg-dark justify-content-center ">
-      <ul class="nav justify-content-center">
-        <li class="nav-item">
-          <%= link_to "Humor", { :controller => "posts", :action => "index", :genre => "humor", :page => 1}, :class => "nav-link text-white"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Game", { :controller => "posts", :action => "index", :genre => "game", :page => 1}, :class => "nav-link text-white"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "News", { :controller => "posts", :action => "index", :genre => "news", :page => 1}, :class => "nav-link text-white"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Issue", { :controller => "posts", :action => "index", :genre => "issue", :page => 1}, :class => "nav-link text-white"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Animal", { :controller => "posts", :action => "index", :genre => "animal", :page => 1}, :class => "nav-link text-white"%>
-      </ul>
-    </nav>
+    <%= render 'layouts/logo_form'%>
+    <%= render 'layouts/genre_form'%>
 
 
     <div class = "container">
@@ -56,29 +36,7 @@
         </div>
 
         <div class = "col-lg-4">
-          <% if current_user %>
-            id : <%= current_user.user_id%><br>
-            name : <%= current_user.name %><br>
-            <%= link_to "로그아웃", {:controller => 'sessions', :action => 'destroy'} %>
-          <% else %>
-            <%= form_tag '/login', method: :post do%>
-
-              <%= content_tag(:div, :class => "form-group") do -%>
-                <%= label_tag(:loginID, "ID") %><br>
-                <%= text_field_tag(:loginID,"", :class => "form-control")%>
-              <% end -%>
-
-              <%= content_tag(:div, :class => "form-group") do -%>
-                <%= label_tag(:loginPW, "Password") %><br>
-                <%= password_field_tag(:loginPW,"", :class => "form-control")%>
-              <% end -%>
-
-              <%= submit_tag("Login", :class => "btn btn-primary")%>
-            <% end %>
-            <div class="dropdown-divider"></div>
-            <%= link_to "New around here? Sign up", {:controller => "users", :action => "new"}, class: "dropdown-item"%>
-            <%= link_to "Forgot password?", {:controller => "users", :action => "forgotPW"}, class: "dropdown-item"%>
-          <% end%>
+          <%= render 'layouts/user_form' %>
         </div>
       </div>
     </div>

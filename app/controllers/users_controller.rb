@@ -12,4 +12,19 @@ class UsersController < ApplicationController
 
   def forgotPW # 비밀번호 찾기 페이지 실행
   end
+
+  def edit
+    @pw = params[:password]
+    if current_user.authenticate(params[:password])
+      @str = "success"
+    else
+    redirect_to :controller => "users", :action => "before_edit", :str => "retry please"
+    end
+  end
+
+  def before_edit
+    @str = params[:str]
+  end
+
+  
 end

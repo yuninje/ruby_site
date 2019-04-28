@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   get 'posts/destroy'
 
   post 'users/create'
+  post 'users/update'
   get 'users/forgotPW'
+  get 'users/new'
+  post 'users/edit'
+  get 'users/before_edit'
 
   get 'comments/destroy'
 
@@ -19,7 +23,7 @@ Rails.application.routes.draw do
 
   
   resources :comments
-  resources :users
+  
   
   root 'home#index'
 end
