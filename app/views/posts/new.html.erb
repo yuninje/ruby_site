@@ -1,23 +1,23 @@
 <h1> post - new </h1>
 
-<%= form_tag(:controller => "posts", :action => "create", :method => "post") do%>
-
-    <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag "Genre" %><br>
-        <%= select_tag(:genre, options_for_select([['Humor','humor'],
-            ['Game','game'], ['News','news'], ['Issue','issue'], ['Animal','animal']], @genre)) %>
-    <% end -%>
+<%= form_tag(:controller => "posts", :action => "create") do %>
     
+    <div class="form-group">
+        <%= label_tag "genre" %><br>
+        <%= select_tag(:genre, options_for_select([['Humor','humor'],
+            ['Game','game'], ['News','news'], ['Issue','issue'], ['Animal','animal']],@genre)) %>
+    </div>
 
-    <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag "Title" %><br>
-        <%= text_field_tag(:title,"", :class => "form-control")%>
-    <% end -%>
+    <div class="form-group">
+        <%= label_tag "title" %><br>
+        <%= text_field_tag(:title,"" ,:class => "form-control") %>
+    </div>
 
-    <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag "Text" %><br>
-        <%= text_area_tag(:text,"", :class => "form-control")%>
-    <% end -%>
+    
+    <div class="form-group">
+        <%= label_tag "text" %><br>
+        <%= text_area_tag(:text,"" , :class => "form-control")%>
+    </div>
 
-    <%= submit_tag("Post", :class => "btn btn-primary")%>
+    <%= submit_tag("create",:class => "btn btn-primary")%>
 <% end %>

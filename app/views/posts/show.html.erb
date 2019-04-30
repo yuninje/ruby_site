@@ -4,7 +4,13 @@
      <h1 class="mt-4 text-center" > <%= @post.title %> </h1>
 
     <p class="lead text-right">
-        by  <%= User.find(@post.author_id).user_id %>   
+        <% if @post_author.image.attached? %>
+            <%= image_tag(@post_author.image, :class => "mr-4 rounded-circle", :width => 50, :height => 50)%>
+        <% else%>
+            <%= image_tag("http://placehold.it/50x50", :class => "mr-4 rounded-circle", :width => 50, :height => 50)%>
+        <% end%>
+
+        <%= @post_author.user_id %>   
     </p>
     <p class="text-right" > <%= @post.created_at.localtime.strftime("%Y-%m-%d %H:%M")%> </p>
     <hr>
@@ -30,15 +36,20 @@
 
     <!-- Comment List -->
     <% @comments.each do |comment| %>
+        <% @commenter = User.find(comment.commenter_id)%>
         <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <% if @commenter.image.attached? %>
+                <%= image_tag(@commenter.image, :class => "d-flex mr-5 rounded-circle", :width => 50, :height => 50)%>
+            <% else%>
+                <%= image_tag("http://placehold.it/50x50", :class => "d-flex mr-5 rounded-circle", :width => 50, :height => 50)%>%>
+            <% end%>
             <div class="media-body">
-                <h5 class="mt-0 push-left" > <%= User.find(comment.commenter_id).user_id%></h5>
+                <h5 class="mt-0 push-left" > <%= @commenter.user_id%></h5>
                 <p><%= comment.body%></p>
                 <div class="text-right">
                     <a><%= comment.created_at.localtime.strftime("%Y-%m-%d %H:%M")%></a>
                     <% if current_user %>
-                        <% if current_user.id == comment.commenter_id%>
+                        <% if current_user.id == @commenter.id%>
                             <a> <%= link_to "delete", {:controller => "comments", :action => "destroy", :comment_id => comment.id, :post_id => @post.id, :page => @page} %></a>
                         <% end%>
                     <%end%>
@@ -46,12 +57,13 @@
             </div>
         </div>
     <% end %>
+    
 </div>
 
 <% if current_user%>
     <% if @post.author_id == current_user.id%>
-        <%= link_to "edit", { :controller => "posts", :action => "edit" , :post_id => @post.id, :page => @page} %>
-        <%= link_to "delete", {:controller => "posts", :action => "destroy", :post_id => @post.id, :genre => @post.genre, :page => @page},   
+        <%= link_to "edit", :controller => "posts", :action => "edit", :post_id => @post.id, :page => @page %>
+        <%= link_to "delete", :controller => "posts", :action => "destroy", :post_id => @post.id, :genre => @post.genre, :page => @page,   
               :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <% end %>
 <% end %>

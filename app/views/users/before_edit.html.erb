@@ -3,7 +3,7 @@
 <h2> 회원정보 변경 전 확인 </h2>
 <h3> <%= @str %> </h3>
 
-<%= form_tag(:controller => "users", :action => "edit", :method => "post") do%>
+<%= form_tag(:controller => "users", :action => "edit", :method => "get") do%>
   
   <%= content_tag(:div, :class => "form-group") do -%>
     <%= label_tag(:password, "Password") %><br>

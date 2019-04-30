@@ -1,5 +1,10 @@
 <!-- user form -->
 <% if current_user %>
+    <% if current_user.image.attached? %>
+        <%= image_tag(current_user.image, :class => "d-flex mr-5 rounded-circle", :width => 100, :height => 100)%>
+    <% else%>
+        <%= image_tag("http://placehold.it/50x50", :class => "d-flex mr-5 rounded-circle", :width => 100, :height => 100)%>%>
+    <% end%>
     id : <%= current_user.user_id%><br>
     name : <%= current_user.name %><br>
     <%= link_to "회원정보 변경", {:controller => 'users', :action => 'before_edit'}%><br>

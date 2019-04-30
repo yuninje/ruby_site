@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'posts/edit'
   get 'posts/destroy'
 
+  resources :users, only: %i[edit, update]
   post 'users/create'
   post 'users/update'
   get 'users/forgotPW'

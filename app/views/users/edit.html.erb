@@ -1,29 +1,6 @@
 <h1> users - edit </h1>
 
 <h2> 회원정보 변경 </h2>
-<%= @pw %>
-<%= @str %>
-<%= @str1 %>
 
-<%= form_tag(:controller => "users", :action => "update", :method => "post") do%>
-  
-    img
+<%= render 'form', :user => @user%>
 
-    <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag(:user_password, "Password") %><br>
-        <%= password_field_tag(:user_password,"", :class => "form-control")%>
-    <% end -%>
-
-    <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag(:user_password_confirmation, "Password confirmation") %><br>
-        <%= password_field_tag(:user_password_confirmation,"", :class => "form-control")%>
-    <% end -%>
-
-    <%= content_tag(:div, :class => "form-group") do -%>
-        <%= label_tag(:user_name, "name") %><br>
-        <%= text_field_tag(:user_name, current_user.name, :class => "form-control")%>
-    <% end -%>
-
-
-  <%= submit_tag "edit", :class => "btn btn-primary"%>
-<% end %>

@@ -3,8 +3,8 @@ class PostsController < ApplicationController
   
 
   def index
-    @post_per_page = 2
-    @page_per_sheet = 3
+    @post_per_page = 5
+    @page_per_sheet = 5
     
     @@genre = params[:genre]
     @genre = @@genre
@@ -31,15 +31,20 @@ class PostsController < ApplicationController
   
   def new
     @genre = @@genre
+    @post = Post.new
   end
 
   def create
-    @post = Post.create(
+    @post = Post.new(
       :genre => params[:genre],
       :title => params[:title],
-      :text => params[:text],
-      :author_id => current_user.id)
-    redirect_to :controller => "posts", :action => "show", :post_id => @post.id, :page => 1
+      :text => params[:text]
+    )
+    @post.author_id = current_user.id
+
+    if @post.save
+      redirect_to :controller => "posts", :action => "show", :post_id => @post.id, :page => 1
+    end
   end
 
   def edit
@@ -51,7 +56,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:post_id])
     if @post.update(
       :title => params[:title],
-      :text => params[:title],
+      :text => params[:text],
       :genre => params[:genre])
       redirect_to :controller => "posts", :action => "show", :post_id => @post.id, :page => params[:page]
     else
@@ -68,9 +73,15 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:post_id])
+    @post_author = User.find(@post.author_id)
     @page = params[:page]
-    @comments = Comment.where(post_id: params[:post_id])
+    @comments = Comment.where(:post_id => @post.id)
     @post.view_count += 1
     @post.save
   end
+
+  private
+    def post_params
+      params.require(:post).permit(:genre, :text, :title)
+    end
 end
