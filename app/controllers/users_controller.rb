@@ -36,9 +36,49 @@ class UsersController < ApplicationController
     end
   end
 
+  def my_posts
+    @page = params[:page]
+
+    total_count = Post.where(:author_id => current_user.id).count
+    get_my_activity(total_count)
+    @posts = Post.where(:author_id => current_user).limit(@post_per_page).offset(@offset).order(:created_at => :desc)
+
+  end
+
+  def my_comments
+    @page = params[:page]
+
+    total_count = Comment.where(:commenter_id => current_user.id).count
+    get_my_activity(total_count)
+    @comments = Comment.where(:commenter_id => current_user).limit(@post_per_page).offset(@offset).order(:created_at => :desc)
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :image)
     end
+
+    def get_my_activity(total_count)
+      @post_per_page = 5
+      @page_per_sheet = 5
+      
+  
+      @offset = (@page.to_i-1) * @post_per_page
+      
+      @first_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
+      @last_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
+      
+      if total_count.to_i % @post_per_page == 0
+        @total_page = total_count.to_i / @post_per_page
+      else
+        @total_page = total_count.to_i / @post_per_page + 1
+      end
+  
+      if @total_page <= @last_page.to_i
+        @last_page = @total_page
+      end
+    end
+
+
   
 end

@@ -1,28 +1,13 @@
 class PostsController < ApplicationController
   def index
-    post_per_page = 5
-    @page_per_sheet = 5
-    
     @genre = params[:genre]
     @page = params[:page]
 
-    offset = (@page.to_i-1) * post_per_page
-    
-    @first_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
-    @last_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
-    total_post = Post.where(:genre => @genre).count
-    
-    if total_post.to_i % post_per_page == 0
-      @total_page = total_post.to_i / post_per_page
+    if @page
+      calculate_page
     else
-      @total_page = total_post.to_i / post_per_page + 1
+      @posts = Post.order(:view_count => :desc).limit(50)
     end
-
-    if @total_page <= @last_page.to_i
-      @last_page = @total_page
-    end
-
-    @posts = Post.where(:genre => @genre).limit(post_per_page).offset(offset).order(:id => :desc)
   end
 
   
@@ -75,13 +60,41 @@ class PostsController < ApplicationController
     @post = Post.find(params[:post_id])
     @post_author = User.find(@post.author_id)
     @page = params[:page]
+    @genre = @post.genre
     @comments = Comment.where(:post_id => @post.id)
     @post.view_count += 1
     @post.save
+
+    calculate_page
   end
 
   private
     def post_params
       params.require(:post).permit(:genre, :text, :title)
+    end
+
+    def calculate_page
+      post_per_page = 5
+      @page_per_sheet = 5
+      
+  
+      offset = (@page.to_i-1) * post_per_page
+      
+      @first_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
+      @last_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
+      total_post = Post.where(:genre => @genre).count
+      
+      if total_post.to_i % post_per_page == 0
+        @total_page = total_post.to_i / post_per_page
+      else
+        @total_page = total_post.to_i / post_per_page + 1
+      end
+  
+      if @total_page <= @last_page.to_i
+        @last_page = @total_page
+      end
+  
+      # offset ~ offset + post_per_page -1 가져오기
+      @posts = Post.where(:genre => @genre).limit(post_per_page).offset(offset).order(:id => :desc)
     end
 end

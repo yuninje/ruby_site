@@ -1,0 +1,30 @@
+<h1> my comments </h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" class="text-center">Genre</th>
+      <th scope="col" class="text-center">Body</th>
+      <th scope="col" class="text-center">Date</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td scope="col" class="text-center"> <%= Post.find(comment.post_id).genre%></td>
+        <td scope="col" class="text-center"> <%= link_to comment.body, :controller => "posts", :action => "show", :post_id => comment.post_id, :page => 1%></td>
+        <td scope="col" class="text-center"> <%= comment.created_at.localtime.strftime("%Y-%m-%d") %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @first_page > 1%>
+  <%= link_to "<" , {:controller => "users", :action => "my_comments", :page => @first_page.to_i - @page_per_sheet}%>
+<%end%>
+<% for page in @first_page..@last_page%>
+  <%= link_to page , {:controller => "users", :action => "my_comments", :page => page}%>
+<% end%>
+<% if @last_page < @total_page%>
+  <%= link_to ">" , {:controller => "users", :action => "my_comments", :page => @last_page.to_i+1}%>
+<%end%>

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'users/new'
   post 'users/edit'
   get 'users/before_edit'
+  get 'users/my_posts'
+  get 'users/my_comments'
 
   get 'comments/destroy'
 

@@ -57,7 +57,6 @@
             </div>
         </div>
     <% end %>
-    
 </div>
 
 <% if current_user%>
@@ -67,4 +66,9 @@
               :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <% end %>
 <% end %>
-<%= link_to "list", { :controller => "posts", :action => "index" , :genre => @post.genre, :page => @page} %>
+<br>
+<br>
+
+
+
+<%= render 'show_genre_form', :posts => @posts %>

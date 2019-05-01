@@ -2,6 +2,9 @@
 <nav class="navbar navbar-dark bg-dark justify-content-center ">
     <ul class="nav justify-content-center">
     <li class="nav-item">
+        <%= link_to "Best50", { :controller => "posts", :action => "index", :genre => "Best50"}, :class => "nav-link text-white"%>
+    </li>
+    <li class="nav-item">
         <%= link_to "Humor", { :controller => "posts", :action => "index", :genre => "Humor", :page => 1}, :class => "nav-link text-white"%>
     </li>
     <li class="nav-item">

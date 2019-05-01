@@ -1,38 +1,17 @@
-<h1> <%= @genre %> 게시판 </h1>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col" class="text-center">#</th>
-      <th scope="col" class="text-center">Title</th>
-      <th scope="col" class="text-center">Author</th>
-      <th scope="col" class="text-center">Date</th>
-      <th scope="col" class="text-center">View </th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <th scope="col" class="text-center"> <%= post.id %></th>
-        <td scope="col" class="text-center"> <%= link_to post.title, :controller => "posts", :action => "show", :post_id => post.id, :page => @page %></td>
-        <td scope="col" class="text-center"> <%= User.find(post.author_id).user_id %> </td>
-        <td scope="col" class="text-center"> <%= post.created_at.localtime.strftime("%Y-%m-%d") %> </td>
-        <td scope="col" class="text-center"> <%= post.view_count %> </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<% if current_user %>
-  <%= link_to "New", :controller => "posts", :action => "new", :genre => @genre%>
-<% end%>
+<h1 > <%= @genre %> 게시판 </h1>
 
-<% if @first_page > 1%>
-  <%= link_to "<" , {:controller => "posts", :action => "index", :genre => @genre,:page => @first_page.to_i - @page_per_sheet}%>
-<%end%>
-<% for page in @first_page..@last_page%>
-  <%= link_to page , {:controller => "posts", :action => "index", :genre => @genre,:page => page}%>
-<% end%>
-<% if @last_page < @total_page%>
-  <%= link_to ">" , {:controller => "posts", :action => "index", :genre => @genre,:page => @last_page.to_i+1}%>
+<% if @page%>
+    <div class ="text-right">
+        <%= select_tag(:sort, options_for_select([['Date','Date'],
+            ['Good','Good'], ['View','View']])) %>
+    </div>
+    <%= render 'show_genre_form', :posts => @posts%>
+    <div class="text-right">
+        <% if current_user %>
+            <%= link_to "New", :controller => "posts", :action => "new", :genre => @genre%>
+        <% end%>
+    </div>
+<% else %>
+    <%= render 'show_best50_form', :posts => @posts, :page => 1%>
 <%end%>
 

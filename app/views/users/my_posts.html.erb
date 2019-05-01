@@ -1,0 +1,33 @@
+<h1> my posts </h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" class="text-center">Genre</th>
+      <th scope="col" class="text-center">Title</th>
+      <th scope="col" class="text-center">Date</th>
+      <th scope="col" class="text-center">View </th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <th scope="col" class="text-center"> <%= post.genre %></th>
+        <td scope="col" class="text-center"> <%= link_to post.title, :controller => "posts", :action => "show", :post_id => post.id, :page => 1 %></td>
+        <td scope="col" class="text-center"> <%= post.created_at.localtime.strftime("%Y-%m-%d") %> </td>
+        <td scope="col" class="text-center"> <%= post.view_count %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @first_page > 1%>
+  <%= link_to "<" , {:controller => "users", :action => "my_posts", :page => @first_page.to_i - @page_per_sheet}%>
+<%end%>
+<% for page in @first_page..@last_page%>
+  <%= link_to page , {:controller => "users", :action => "my_posts", :page => page}%>
+<% end%>
+<% if @last_page < @total_page%>
+  <%= link_to ">" , {:controller => "users", :action => "my_posts", :page => @last_page.to_i+1}%>
+<%end%>

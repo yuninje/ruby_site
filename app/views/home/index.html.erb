@@ -1,6 +1,29 @@
-<h1> home - index </h1>
-
 <h2> <%= @str %> </h2>
-
+<div class = "container">
+    <div class="row">
+        <div class = "col-lg">
+            <%= render 'best_posts_form', :posts => @best_posts, :genre => "Best50"%>
+        </div>
+        <div class = "col-lg">
+            <%= render 'genre_form', :posts => @humor_posts, :genre => "Humor"%>
+        </div>
+    </div>
+    <div class="row">
+        <div class = "col-lg">
+            <%= render 'genre_form', :posts => @game_posts , :genre => "Game"%>
+        </div>
+        <div class = "col-lg">
+            <%= render 'genre_form', :posts => @news_posts, :genre => "News"%>
+        </div>
+    </div>
+    <div class="row">
+        <div class = "col-lg">
+            <%= render 'genre_form', :posts => @issue_posts, :genre => "Issue"%>
+        </div>
+        <div class = "col-lg">
+            <%= render 'genre_form', :posts => @animal_posts, :genre => "Animal"%>
+        </div>
+    </div>
+</div>
 
 
