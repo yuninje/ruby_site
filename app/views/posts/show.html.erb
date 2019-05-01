@@ -62,7 +62,7 @@
 
 <% if current_user%>
     <% if @post.author_id == current_user.id%>
-        <%= link_to "edit", :controller => "posts", :action => "edit", :post_id => @post.id, :page => @page %>
+        <%= link_to "edit", :controller => "posts", :action => "edit", :post_id => @post.id, :page => @page%>
         <%= link_to "delete", :controller => "posts", :action => "destroy", :post_id => @post.id, :genre => @post.genre, :page => @page,   
               :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <% end %>

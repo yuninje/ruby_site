@@ -1,11 +1,11 @@
-<h1> post - new </h1>
+<h1> 새 게시글 </h1>
 
 <%= form_tag(:controller => "posts", :action => "create") do %>
     
     <div class="form-group">
         <%= label_tag "genre" %><br>
-        <%= select_tag(:genre, options_for_select([['Humor','humor'],
-            ['Game','game'], ['News','news'], ['Issue','issue'], ['Animal','animal']],@genre)) %>
+        <%= select_tag(:genre, options_for_select([['Humor','Humor'],
+            ['Game','Game'], ['News','News'], ['Issue','Issue'], ['Animal','Animal']],@genre)) %>
     </div>
 
     <div class="form-group">

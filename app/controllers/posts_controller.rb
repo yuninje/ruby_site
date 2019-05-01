@@ -1,36 +1,33 @@
 class PostsController < ApplicationController
-  @@genre = ""
-  
-
   def index
-    @post_per_page = 5
+    post_per_page = 5
     @page_per_sheet = 5
     
-    @@genre = params[:genre]
-    @genre = @@genre
+    @genre = params[:genre]
     @page = params[:page]
-    offset = (@page.to_i-1) * @post_per_page
+
+    offset = (@page.to_i-1) * post_per_page
     
-    @first_page = (@page.to_i-1)/@page_per_sheet*@page_per_sheet+1
-    @last_page = (@page.to_i-1)/@page_per_sheet*@page_per_sheet+@page_per_sheet
-    total_post = Post.where(:genre => @@genre).count
+    @first_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
+    @last_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
+    total_post = Post.where(:genre => @genre).count
     
-    if total_post.to_i % @post_per_page == 0
-      @total_page = total_post.to_i/@post_per_page
+    if total_post.to_i % post_per_page == 0
+      @total_page = total_post.to_i / post_per_page
     else
-      @total_page = total_post.to_i/@post_per_page+1
+      @total_page = total_post.to_i / post_per_page + 1
     end
 
     if @total_page <= @last_page.to_i
       @last_page = @total_page
     end
 
-    @posts = Post.where(:genre => @@genre).limit(@post_per_page).offset(offset).order(:id => :desc)
+    @posts = Post.where(:genre => @genre).limit(post_per_page).offset(offset).order(:id => :desc)
   end
 
   
   def new
-    @genre = @@genre
+    @genre = params[:genre]
     @post = Post.new
   end
 
@@ -65,10 +62,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
-    @post.destroy
+    post = Post.find(params[:post_id])
+    genre = params[:genre]
+    page = params[:page]
+    post_id = post.id
+    post.destroy
 
-    redirect_to :controller => "posts", :action => "index", :page => params[:page], :genre => params[:genre]
+    redirect_to :controller => "comments", :action => "destroy", :genre => genre, :page => page, :deleted_post_id => post_id
   end
 
   def show
