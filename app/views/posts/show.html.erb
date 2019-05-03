@@ -41,7 +41,7 @@
             <% if @commenter.image.attached? %>
                 <%= image_tag(@commenter.image, :class => "d-flex mr-5 rounded-circle", :width => 50, :height => 50)%>
             <% else%>
-                <%= image_tag("http://placehold.it/50x50", :class => "d-flex mr-5 rounded-circle", :width => 50, :height => 50)%>%>
+                <%= image_tag("http://placehold.it/50x50", :class => "d-flex mr-5 rounded-circle", :width => 50, :height => 50)%>
             <% end%>
             <div class="media-body">
                 <h5 class="mt-0 push-left" > <%= @commenter.user_id%></h5>
