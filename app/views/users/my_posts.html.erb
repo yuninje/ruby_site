@@ -26,7 +26,6 @@
   <%= link_to "<" , {:controller => "users", :action => "my_posts", :page => @first_page.to_i - @page_per_sheet}%>
 <%end%>
 <% for page in @first_page..@last_page%>
-  
   <% if page == @page.to_i%>
     <%= link_to (raw "<strong>#{page}</strong>") , {:controller => "users", :action => "my_posts", :page => page}%>
   <% else%>
