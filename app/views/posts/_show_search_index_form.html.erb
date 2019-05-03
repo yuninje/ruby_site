@@ -26,7 +26,11 @@
   <%= link_to "<" , {:controller => "posts", :action => "search", :search => @search,:page => @first_page.to_i - @page_per_sheet}%>
 <%end%>
 <% for page in @first_page..@last_page%>
-  <%= link_to page , {:controller => "posts", :action => "search", :search => @search,:page => page}%>
+  <% if page == @page.to_i%>
+    <%= link_to (raw "<strong>#{page}</strong>") , {:controller => "posts", :action => "search", :search => @search,:page => page}%>
+  <% else%>
+    <%= link_to page , {:controller => "posts", :action => "search", :search => @search,:page => page}%>
+  <% end%>
 <% end%>
 <% if @last_page < @total_page%>
   <%= link_to ">" , {:controller => "posts", :action => "search", :search => @search, :page=> @last_page.to_i+1}%>
