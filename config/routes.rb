@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  mount Ckeditor::Engine => '/ckeditor'
   post 'posts/create'
   post 'posts/update'
   get 'posts/new'

@@ -1,3 +1,4 @@
+<%= javascript_include_tag Ckeditor.cdn_url%>
 <div class="col-lg-8">
     <!-- Title -->
      <h3> <%= @post.genre %> </h3>
@@ -15,7 +16,7 @@
     <p class="text-right" > <%= @post.created_at.localtime.strftime("%Y-%m-%d %H:%M")%> </p>
     <hr>
 
-    <%= @post.text %>
+    <%= raw @post.text %>
 
     <hr>
 
@@ -71,4 +72,4 @@
 
 
 
-<%= render 'show_genre_form', :posts => @posts %>
+<%= render 'show_genre_form'%>

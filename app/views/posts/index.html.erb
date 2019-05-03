@@ -5,13 +5,13 @@
         <%= select_tag(:sort, options_for_select([['Date','Date'],
             ['Good','Good'], ['View','View']])) %>
     </div>
-    <%= render 'show_genre_form', :posts => @posts%>
+    <%= render 'show_genre_form'%>
     <div class="text-right">
         <% if current_user %>
             <%= link_to "New", :controller => "posts", :action => "new", :genre => @genre%>
         <% end%>
     </div>
 <% else %>
-    <%= render 'show_best50_form', :posts => @posts, :page => 1%>
+    <%= render 'show_best50_form'%>
 <%end%>
 

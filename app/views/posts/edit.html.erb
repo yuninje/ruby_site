@@ -1,3 +1,4 @@
+<%= javascript_include_tag Ckeditor.cdn_url%>
 <h1>게시글 수정</h1>
 <%= form_tag(:controller => "posts", :action => "update", :post_id => @post.id, :page => @page) do %>
     <div class = "form-group">
@@ -10,9 +11,9 @@
         <%= text_field_tag(:title,@post.title, :class => "form-control") %>
     </div>
 
-    <div class = "form-group">
+    <div class="form-group">
         <%= label_tag "text" %><br>
-        <%= text_area_tag(:text , @post.text,  :class => "form-control")%>
+        <%= cktext_area_tag(:text, @post.text,:class => "form-control")%>
     </div>
 
     <%= submit_tag("Edit", :class => "btn btn-primary")%>

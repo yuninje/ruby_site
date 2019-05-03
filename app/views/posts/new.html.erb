@@ -1,3 +1,4 @@
+<%= javascript_include_tag Ckeditor.cdn_url%>
 <h1> 새 게시글 </h1>
 
 <%= form_tag(:controller => "posts", :action => "create") do %>
@@ -16,7 +17,7 @@
     
     <div class="form-group">
         <%= label_tag "text" %><br>
-        <%= text_area_tag(:text,"" , :class => "form-control")%>
+        <%= cktext_area_tag( :text,"",:class => "form-control") %>
     </div>
 
     <%= submit_tag("create",:class => "btn btn-primary")%>
