@@ -48,14 +48,24 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:post_id])
     @post_author = User.find(@post.author_id)
-    unless @page = params[:page]
-      @page = 1
-    end
-    @genre = @post.genre
     @comments = Comment.where(:post_id => @post.id)
     @post.view_count += 1
     @post.save
 
+    unless @page = params[:page]
+      @page = 1
+    end
+
+    unless @search = params[:search]
+      @genre = @post.genre
+    end
+
+    calculate_page
+  end
+
+  def search
+    @search = params[:search]
+    @page = params[:page]
     calculate_page
   end
 
@@ -72,7 +82,12 @@ class PostsController < ApplicationController
       
       @first_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
       @last_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
-      total_post = Post.where(:genre => @genre).count
+      
+      if @genre
+        total_post = Post.where(:genre => @genre).count
+      elsif @search
+        total_post = Post.where('title Like ?', "%#{@search}%").count
+      end
       
       if total_post.to_i % post_per_page == 0
         @total_page = total_post.to_i / post_per_page
@@ -85,6 +100,10 @@ class PostsController < ApplicationController
       end
   
       # offset ~ offset + post_per_page -1 가져오기
-      @posts = Post.where(:genre => @genre).limit(post_per_page).offset(offset).order(:id => :desc)
+      if @genre
+        @posts = Post.where(:genre => @genre).limit(post_per_page).offset(offset).order(:id => :desc)
+      elsif @search
+        @posts = Post.where('title Like ?', "%#{@search}%").limit(post_per_page).offset(offset).order(:id => :desc)
+      end
     end
 end

@@ -70,5 +70,8 @@
 <br>
 
 
-
-<%= render 'show_genre_form'%>
+<% if @search %>
+    <%= render 'show_search_index_form'%>
+<% else%>
+    <%= render 'show_genre_index_form'%>
+<% end%>

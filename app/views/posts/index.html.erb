@@ -5,7 +5,7 @@
         <%= select_tag(:sort, options_for_select([['Date','Date'],
             ['Good','Good'], ['View','View']])) %>
     </div>
-    <%= render 'show_genre_form'%>
+    <%= render 'show_genre_index_form'%>
     <div class="text-right">
         <% if current_user %>
             <%= link_to "New", :controller => "posts", :action => "new", :genre => @genre%>

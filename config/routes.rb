@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'posts/show'
   get 'posts/edit'
   get 'posts/destroy'
+  post 'posts/search'
+  get 'posts/search'
 
   resources :users, only: [:new, :create,:edit, :update]
   #post 'users/create'

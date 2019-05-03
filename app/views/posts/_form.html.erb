@@ -1,17 +1,16 @@
 <%= form_with(:model => post, :local => true) do |form|%>
-    <%= content_tag(:div, :class => "form-group") do -%>
+
+    <div class = "group">
         <%= form.label(:genre) %><br>
         <%= form.select(:genre, options_for_select([['Humor','Humor'],
             ['Game','Game'], ['News','Gews'], ['Issue','Issue'], ['Animal','Animal']], post.genre)) %>
-    <% end -%>
-    
-
-    <%= content_tag(:div, :class => "form-group") do -%>
+    </div>
+    <div class = "group">
         <%= form.label(:Title) %><br>
         <%= form.text_field(:title, :class => "form-control")%>
-    <% end -%>
+    </div>
 
-    <%= content_tag(:div, :class => "form-group") do -%>
+    <div class = "group">
         <%= form.label(:Text) %><br>
         <%= form.cktext_area(:text, :class => "form-control")%>
     <% end -%>
@@ -20,4 +19,5 @@
         <%= form.submit "post",:class => "btn btn-primary", :page => @page %>
     </div>
     <%= @page %>
+    
 <% end %>

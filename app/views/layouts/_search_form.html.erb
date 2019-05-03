@@ -1,0 +1,13 @@
+<%= form_tag(:controller => "posts", :action => "search", :page => 1) do%>
+    <div class = "group">
+        <%= label_tag(:search) %><br>
+        <div class = "row"> 
+            <div class = "col-lg-9">
+                <%= text_field_tag(:search,"", :class => "form-control" )%>
+            </div>
+            <div class = "col-lg-3">
+                <%= submit_tag "search", :class => "btn btn-primary"%>
+            </div>
+        </div>
+    </div>
+<%end%>
