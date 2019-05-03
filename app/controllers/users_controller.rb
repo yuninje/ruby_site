@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
   def new   # 회원가입 페이지 실행.
+    @user = User.new
   end
 
   def create # 데이터베이스에 생성
-    @user = User.create(user_id: params[:user_id],
-      password: params[:user_password],
-      password_confirmation: params[:user_password_confirmation],
-      name: params[:user_name])
+    # @user = User.create(user_id: params[:user_id],
+    #   password: params[:user_password],
+    #   password_confirmation: params[:user_password_confirmation],
+    #   name: params[:user_name])
+    @user = User.create(user_params)
     redirect_to :controller => "home", :action => "index", :str => 'user create success'
   end
 
@@ -55,7 +57,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:name, :image)
+      params.require(:user).permit(:user_id, :password, :password_confrimation, :name, :image)
     end
 
     def get_my_activity(total_count)

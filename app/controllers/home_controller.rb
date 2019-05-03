@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
     post_per_page = 5
+    @str = params[:str]
 
     @best_posts = Post.order(:view_count => :desc).limit(post_per_page)
     @humor_posts = Post.where(:genre => "Humor").limit(post_per_page).order(:id => :desc)    

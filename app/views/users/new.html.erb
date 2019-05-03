@@ -1,25 +1,3 @@
 <h1>회원가입</h1>
 
-<%= form_tag(:controller => "users", :action => "create", :method => "post") do%>
-  <%= content_tag(:div, :class => "form-group") do -%>
-    <%= label_tag(:user_id, "ID") %><br>
-    <%= text_field_tag(:user_id,"", :class => "form-control")%>
-  <% end -%>
-
-  <%= content_tag(:div, :class => "form-group") do -%>
-    <%= label_tag(:user_password, "Password") %><br>
-    <%= password_field_tag(:user_password,"", :class => "form-control")%>
-  <% end -%>
-
-  <%= content_tag(:div, :class => "form-group") do -%>
-    <%= label_tag(:user_password_confirmation, "Password confirmation") %><br>
-    <%= password_field_tag(:user_password_confirmation,"", :class => "form-control")%>
-  <% end -%>
-
-  <%= content_tag(:div, :class => "form-group") do -%>
-    <%= label_tag(:user_name, "name") %><br>
-    <%= text_field_tag(:user_name, "", :class => "form-control")%>
-  <% end -%>
-
-  <%= submit_tag "create", :class => "btn btn-primary"%>
-<% end %>
+<%= render 'signUp_form', :user => @user%>

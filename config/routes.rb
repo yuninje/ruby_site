@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   
   mount Ckeditor::Engine => '/ckeditor'
-  resources :posts, only: [:new, :create, :edit, :update]
+  resources :posts, only: [:new, :create, :edit, :update, :destroy] do
+    resources :comments
+  end
   #post 'posts/create'
   #post 'posts/update'
   #get 'posts/new'
@@ -10,11 +12,11 @@ Rails.application.routes.draw do
   get 'posts/edit'
   get 'posts/destroy'
 
-  resources :users, only: [:edit, :update]
-  post 'users/create'
-  post 'users/update'
+  resources :users, only: [:new, :create,:edit, :update]
+  #post 'users/create'
+  #post 'users/update'
   get 'users/forgotPW'
-  get 'users/new'
+  #get 'users/new'
   post 'users/edit'
   get 'users/before_edit'
   get 'users/my_posts'

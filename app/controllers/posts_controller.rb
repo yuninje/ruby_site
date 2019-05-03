@@ -37,21 +37,18 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:post_id])
+    @post = Post.find(params[:post_id])
     genre = params[:genre]
     page = params[:page]
-    post_id = post.id
-    post.destroy
+    @post.destroy
 
-    redirect_to :controller => "comments", :action => "destroy", :genre => genre, :page => page, :deleted_post_id => post_id
+    redirect_to :controller => "posts", :action => "index", :genre => genre, :page => page
   end
 
   def show
     @post = Post.find(params[:post_id])
     @post_author = User.find(@post.author_id)
-    if params[:page]
-      @page = params[:page]
-    else
+    unless @page = params[:page]
       @page = 1
     end
     @genre = @post.genre
