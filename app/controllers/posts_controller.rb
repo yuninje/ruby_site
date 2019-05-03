@@ -12,16 +12,12 @@ class PostsController < ApplicationController
 
   
   def new
-    @genre = params[:genre]
     @post = Post.new
+    @post.genre = params[:genre]
   end
 
   def create
-    @post = Post.new(
-      :genre => params[:genre],
-      :title => params[:title],
-      :text => params[:text]
-    )
+    @post = Post.new(post_params)
     @post.author_id = current_user.id
 
     if @post.save
@@ -31,18 +27,12 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:post_id])
-    @page = params[:page]
   end
 
   def update
-    @post = Post.find(params[:post_id])
-    if @post.update(
-      :title => params[:title],
-      :text => params[:text],
-      :genre => params[:genre])
-      redirect_to :controller => "posts", :action => "show", :post_id => @post.id, :page => params[:page]
-    else
-      redirect_to :controller => "home", :action => "index", :str => "post update fail"
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to :controller => "posts", :action => "show", :post_id => @post.id, :page => 1
     end
   end
 
@@ -59,7 +49,11 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:post_id])
     @post_author = User.find(@post.author_id)
-    @page = params[:page]
+    if params[:page]
+      @page = params[:page]
+    else
+      @page = 1
+    end
     @genre = @post.genre
     @comments = Comment.where(:post_id => @post.id)
     @post.view_count += 1
@@ -76,7 +70,6 @@ class PostsController < ApplicationController
     def calculate_page
       post_per_page = 5
       @page_per_sheet = 5
-      
   
       offset = (@page.to_i-1) * post_per_page
       

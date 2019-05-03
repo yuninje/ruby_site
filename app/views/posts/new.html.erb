@@ -1,24 +1,4 @@
 <%= javascript_include_tag Ckeditor.cdn_url%>
 <h1> 새 게시글 </h1>
 
-<%= form_tag(:controller => "posts", :action => "create") do %>
-    
-    <div class="form-group">
-        <%= label_tag "genre" %><br>
-        <%= select_tag(:genre, options_for_select([['Humor','Humor'],
-            ['Game','Game'], ['News','News'], ['Issue','Issue'], ['Animal','Animal']],@genre)) %>
-    </div>
-
-    <div class="form-group">
-        <%= label_tag "title" %><br>
-        <%= text_field_tag(:title,"" ,:class => "form-control") %>
-    </div>
-
-    
-    <div class="form-group">
-        <%= label_tag "text" %><br>
-        <%= cktext_area_tag( :text,"",:class => "form-control") %>
-    </div>
-
-    <%= submit_tag("create",:class => "btn btn-primary")%>
-<% end %>
+<%= render 'form', :post => @post%>

@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
   
   mount Ckeditor::Engine => '/ckeditor'
-  post 'posts/create'
-  post 'posts/update'
-  get 'posts/new'
+  resources :posts, only: [:new, :create, :edit, :update]
+  #post 'posts/create'
+  #post 'posts/update'
+  #get 'posts/new'
   get 'posts/index'
   get 'posts/show'
   get 'posts/edit'
   get 'posts/destroy'
 
-  resources :users, only: %i[edit, update]
+  resources :users, only: [:edit, :update]
   post 'users/create'
   post 'users/update'
   get 'users/forgotPW'
