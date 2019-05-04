@@ -12,11 +12,12 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <th scope="col" class="text-center"> <%= post.id %></th>
+        <th scope="col" class="text-center"> <%= @start_post_id %></th>
         <td scope="col" class="text-center"> <%= link_to post.title, :controller => "posts", :action => "show", :post_id => post.id, :page => @page %></td>
         <td scope="col" class="text-center"> <%= User.find(post.author_id).user_id %> </td>
         <td scope="col" class="text-center"> <%= post.created_at.localtime.strftime("%Y-%m-%d") %> </td>
         <td scope="col" class="text-center"> <%= post.view_count %> </td>
+        <% @start_post_id = @start_post_id.to_i - 1%>
       </tr>
     <% end %>
   </tbody>

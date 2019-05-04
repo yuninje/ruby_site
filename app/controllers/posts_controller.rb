@@ -8,6 +8,8 @@ class PostsController < ApplicationController
     else
       @posts = Post.order(:view_count => :desc).limit(50)
     end
+
+    @start_post_id = @total_post.to_i - (@page.to_i-1) * @post_per_page.to_i
   end
 
   
@@ -61,6 +63,8 @@ class PostsController < ApplicationController
     end
 
     calculate_page
+    
+    @start_post_id = @total_post.to_i - (@page.to_i-1) * @post_per_page.to_i
   end
 
   def search
@@ -75,24 +79,24 @@ class PostsController < ApplicationController
     end
 
     def calculate_page
-      post_per_page = 5
+      @post_per_page = 5
       @page_per_sheet = 5
   
-      offset = (@page.to_i-1) * post_per_page
+      offset = (@page.to_i-1) * @post_per_page
       
       @first_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
       @last_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
       
       if @genre
-        total_post = Post.where(:genre => @genre).count
+        @total_post = Post.where(:genre => @genre).count
       elsif @search
-        total_post = Post.where('title Like ?', "%#{@search}%").count
+        @total_post = Post.where('title Like ?', "%#{@search}%").count
       end
       
-      if total_post.to_i % post_per_page == 0
-        @total_page = total_post.to_i / post_per_page
+      if @total_post.to_i % @post_per_page == 0
+        @total_page = @total_post.to_i / @post_per_page
       else
-        @total_page = total_post.to_i / post_per_page + 1
+        @total_page = @total_post.to_i / @post_per_page + 1
       end
   
       if @total_page <= @last_page.to_i
@@ -101,9 +105,9 @@ class PostsController < ApplicationController
   
       # offset ~ offset + post_per_page -1 가져오기
       if @genre
-        @posts = Post.where(:genre => @genre).limit(post_per_page).offset(offset).order(:id => :desc)
+        @posts = Post.where(:genre => @genre).limit(@post_per_page).offset(offset).order(:id => :desc)
       elsif @search
-        @posts = Post.where('title Like ?', "%#{@search}%").limit(post_per_page).offset(offset).order(:id => :desc)
+        @posts = Post.where('title Like ?', "%#{@search}%").limit(@post_per_page).offset(offset).order(:id => :desc)
       end
     end
 end
