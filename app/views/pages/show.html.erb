@@ -1,17 +1,10 @@
-<h1> pages - show </h1>
-<h2><%= @genre.name%> 게시판</h2>
-
-<% if @page == 0%>
-    <%= render 'show_best50_form'%>
-<% else %>
-    <div class ="text-right">
-        <%= select_tag(:sort, options_for_select([['Date','Date'],
-            ['Good','Good'], ['View','View']])) %>
-    </div>
-    <%= render 'show_genre_index_form'%>
-    <div class="text-right">
-        <% if current_user %>
-            <%= link_to "New", new_genre_post_path(@genre_id) %>
-        <% end%>
-    </div>
-<%end%>
+<div class ="text-right">
+    <%= select_tag(:sort, options_for_select([['Date','Date'],
+        ['Good','Good'], ['View','View']])) %>
+</div>
+<%= render 'show_genre_index_form'%>
+<div class="text-right">
+    <% if current_user %>
+        <%= link_to "New", new_genre_post_path(@genre_id) %>
+    <% end%>
+</div>
