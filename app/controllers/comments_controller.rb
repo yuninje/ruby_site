@@ -1,22 +1,28 @@
 class CommentsController < ApplicationController
     def create
-        @comment = Comment.create(commenter_id: current_user.id,
-            body: params[:body],
-            post_id: params[:post_id])
-        redirect_to :controller => "posts", :action => "show", :post_id => params[:post_id], :page => params[:page]
+        @genre_id = params[:genre_id]
+        @post_id = params[:post_id]
+        @genre = Genre.find(@genre_id)
+        @post = Post.find(@post_id)
+        @comment = @post.comments.new(comment_params)
+        @comment.commenter_id = current_user.id
+        if @comment.save
+            redirect_to  genre_page_post_path(@genre_id,1,@post_id)
+        end
     end
 
     def destroy
-        if params[:deleted_post_id]
-            @comments = Comment.where(:post_id => params[:deleted_post_id])
-            @comments.each do |comment|
-                comment.destroy
-            end
-            redirect_to :controller => "posts", :action => "index", :genre => params[:genre], :page => params[:page]
-        else
-            @comment = Comment.find(params[:comment_id])
-            @comment.destroy
-            redirect_to :controller => "posts", :action => "show", :post_id => params[:post_id], :page => params[:page]
-        end
+        @genre_id = params[:genre_id]
+        @post_id = params[:post_id]
+
+
+        @post = Post.find(@post_id)
+        @comment = Comment.find(params[:id])
+        @comment.destroy
+        redirect_to genre_page_post_path(@genre_id,1,@post_id)
     end
+    private
+        def comment_params
+            params.require(:comment).permit(current_user.id, :body)
+        end
 end

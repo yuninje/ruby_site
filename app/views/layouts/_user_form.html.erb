@@ -10,7 +10,6 @@
         name : <%= current_user.name %><br>
         <%= link_to "회원정보 변경", {:controller => 'users', :action => 'before_edit'}%><br>
         <%= link_to "내가 쓴 게시글", {:controller => 'users', :action => 'my_posts', :page => 1}%><br>
-        <%= link_to "내가 쓴 댓글", {:controller => 'users', :action => 'my_comments', :page => 1}%><br>
         <%= link_to "로그아웃", {:controller => 'sessions', :action => 'destroy'} %>
     </div>
 <% else %>

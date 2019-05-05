@@ -1,29 +1,10 @@
 <!-- genre form -->
 <nav class="navbar navbar-dark bg-dark justify-content-center ">
     <ul class="nav justify-content-center">
-    <li class="nav-item">
-        <%= link_to "Best50", { :controller => "posts", :action => "index", :genre => "Best50"}, :class => "nav-link text-white"%>
-    </li>
-    <li class="nav-item">
-        <%= link_to "Humor", { :controller => "posts", :action => "index", :genre => "Humor", :page => 1}, :class => "nav-link text-white"%>
-    </li>
-    <li class="nav-item">
-        <%= link_to "Game", { :controller => "posts", :action => "index", :genre => "Game", :page => 1}, :class => "nav-link text-white"%>
-    </li>
-    <li class="nav-item">
-        <%= link_to "News", { :controller => "posts", :action => "index", :genre => "News", :page => 1}, :class => "nav-link text-white"%>
-    </li>
-    <li class="nav-item">
-        <%= link_to "Issue", { :controller => "posts", :action => "index", :genre => "Issue", :page => 1}, :class => "nav-link text-white"%>
-    </li>
-    <li class="nav-item">
-        <%= link_to "Animal", { :controller => "posts", :action => "index", :genre => "Animal", :page => 1}, :class => "nav-link text-white"%>
+        <% $genres.each do |genre| %>
+            <li class="nav-item">
+                <%= link_to genre.name, genre_page_path(genre.id,1), :class => "nav-link text-white"%>
+            </li>
+        <%end%>
     </ul>
-
-    
-    <% $genres.each do |genre| %>
-        <li class="nav-item">
-            <%= link_to genre.name, genre_page_path(genre.id,1), :class => "nav-link text-white"%>
-        </ul>
-    <%end%>
 </nav>

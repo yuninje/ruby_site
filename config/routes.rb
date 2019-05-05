@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   #post 'posts/update'
   #get 'posts/new'
   # get 'posts/index'
-  # get 'posts/show'
+  get 'posts/show'
   # get 'posts/edit'
   # get 'posts/destroy'
   post 'posts/search'
@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   post 'users/edit'
   get 'users/before_edit'
   get 'users/my_posts'
-  get 'users/my_comments'
 
   get 'comments/destroy'
 
@@ -40,5 +39,5 @@ Rails.application.routes.draw do
 
   
   get 'home/index'
-  root 'home#index'
+  root 'genres#index'
 end

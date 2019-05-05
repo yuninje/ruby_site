@@ -1,9 +1,7 @@
-<%= form_with(:model => post, :local => true) do |form|%>
-
+<%= form_with(:model => [@genre, @post], :local => true) do |form|%>
     <div class = "group">
         <%= form.label(:genre) %><br>
-        <%= form.select(:genre, options_for_select([['Humor','Humor'],
-            ['Game','Game'], ['News','News'], ['Issue','Issue'], ['Animal','Animal']], post.genre)) %>
+        <%= form.label(@genre.name)%>
     </div>
     <div class = "group">
         <%= form.label(:Title) %><br>
@@ -19,5 +17,4 @@
         <%= form.submit "post",:class => "btn btn-primary", :page => @page %>
     </div>
     <%= @page %>
-    
 <% end %>

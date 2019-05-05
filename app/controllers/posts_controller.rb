@@ -8,23 +8,36 @@ class PostsController < ApplicationController
     else
       @posts = Post.order(:view_count => :desc).limit(50)
     end
-
-    @start_post_id = @total_post.to_i - (@page.to_i-1) * @post_per_page.to_i
   end
 
-  def show
-    @genre_id = params[:genre_id]
-    @page_id = params[:page_id]
-    @genre = Genre.find(@genre_id)
-    @post = Post.find(params[:id])
-    @post_author = User.find(@post.author_id)
-    
-    @comments = Comment.where(:post_id => @post.id)
-    @post.view_count += 1
-    @post.save
+  def show 
+    @my_activity = params[:my_activity]
+    @search = params[:search]
+    if @my_activity || @search
+      @page_id = params[:page_id]
+      @post_id = params[:post_id]
+      @post = Post.find(@post_id)
+      @genre_id = @post.genre_id
+      @genre = Genre.find(@genre_id)
+      @post_author = User.find(@post.author_id)
 
-    calculate_page
-    @start_post_id = @total_post.to_i - (@page_id.to_i-1) * @post_per_page.to_i
+      @post.view_count += 1
+      @post.save
+
+      calculate_page
+    else
+      @genre_id = params[:genre_id]
+      @page_id = params[:page_id]
+      @genre = Genre.find(@genre_id)
+      @post = Post.find(params[:id])
+      @post_id = @post.id
+      @post_author = User.find(@post.author_id)
+      
+      @post.view_count += 1
+      @post.save
+
+      calculate_page
+    end
   end
 
   
@@ -70,11 +83,9 @@ class PostsController < ApplicationController
     redirect_to genre_page_path(@genre_id, @page_id)
   end
 
-  
-
   def search
     @search = params[:search]
-    @page = params[:page]
+    @page_id = params[:page_id]
     calculate_page
   end
 
@@ -83,21 +94,26 @@ class PostsController < ApplicationController
       params.require(:post).permit(:genre, :title, :text)
     end
 
-    def calculate_page
-      @post_per_page = 2
-      @page_per_sheet = 2
-  
-      offset = (@page_id.to_i-1) * @post_per_page
+    def calculate_page  
+      offset = (@page_id.to_i-1) * $post_per_page
       
-      @first_page = (@page_id.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
-      @last_page = (@page_id.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
+      @first_page = (@page_id.to_i - 1) / $page_per_sheet * $page_per_sheet + 1
+      @last_page = (@page_id.to_i - 1) / $page_per_sheet * $page_per_sheet + $page_per_sheet
       
-      @total_post = Post.where(:genre_id => @genre_id).count
-      
-      if @total_post.to_i % @post_per_page == 0
-      @total_page = @total_post.to_i / @post_per_page
+      if @my_activity
+        @total_post = Post.where(:author_id => current_user.id)
+      elsif @search
+        @total_post = Post.where('title Like ?', "%#{@search}%")
       else
-      @total_page = @total_post.to_i / @post_per_page + 1
+        @total_post = Post.where(:genre_id => @genre_id)
+      end
+
+      @total_post_count = @total_post.count
+
+      if @total_post_count.to_i % $post_per_page == 0
+        @total_page = @total_post_count.to_i / $post_per_page
+      else
+        @total_page = @total_post_count.to_i / $post_per_page + 1
       end
   
       if @total_page <= @last_page.to_i
@@ -105,6 +121,7 @@ class PostsController < ApplicationController
       end
   
       # offset ~ offset + post_per_page -1 가져오기
-      @posts = Post.where(:genre_id => @genre_id).limit(@post_per_page).offset(offset).order(:id => :desc)
+      @posts = @total_post.limit($post_per_page).offset(offset).order(:id => :desc)
+      @start_post_id = @total_post_count.to_i - (@page.to_i-1) * $post_per_page.to_i
     end
 end

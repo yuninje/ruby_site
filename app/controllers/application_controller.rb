@@ -1,3 +1,6 @@
+$genres = Genre.all
+$post_per_page = 10
+$page_per_sheet = 5
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
     
