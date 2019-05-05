@@ -4,16 +4,16 @@ class SessionsController < ApplicationController
         if user && user.authenticate(params[:loginPW])
             session[:user_id] = user.id
             flash[:success] = 'Successfully login'
-            redirect_to genres_path
+            redirect_to '/', :str => "login success"
         else
             flash[:warning] = 'login failed'
-            redirect_to genres_path
+            redirect_to '/', :str => "login failed"
         end
     end
 
     def destroy     # get '/logout'
         session[:user_id] = nil
         flash[:success] = "Successfully logout"
-        redirect_to genres_path
+        redirect_to '/', :str => "Logout"
     end
 end

@@ -8,9 +8,6 @@ class UsersController < ApplicationController
     redirect_to :controller => "home", :action => "index", :str => 'user create success'
   end
 
-  def forgotPW # 비밀번호 찾기 페이지 실행
-  end
-
   def edit
     @pw = params[:password]
     if current_user.authenticate(params[:password])
