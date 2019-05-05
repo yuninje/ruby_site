@@ -19,4 +19,11 @@
     <li class="nav-item">
         <%= link_to "Animal", { :controller => "posts", :action => "index", :genre => "Animal", :page => 1}, :class => "nav-link text-white"%>
     </ul>
+
+    
+    <% $genres.each do |genre| %>
+        <li class="nav-item">
+            <%= link_to genre.name, genre_page_path(genre.id,1), :class => "nav-link text-white"%>
+        </ul>
+    <%end%>
 </nav>

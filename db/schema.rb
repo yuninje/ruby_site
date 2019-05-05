@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_04_000111) do
+ActiveRecord::Schema.define(version: 2019_05_05_080841) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,24 +33,6 @@ ActiveRecord::Schema.define(version: 2019_05_04_000111) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "animal_comments", force: :cascade do |t|
-    t.integer "commenter_id"
-    t.text "body"
-    t.integer "animal_post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["animal_post_id"], name: "index_animal_comments_on_animal_post_id"
-  end
-
-  create_table "animal_posts", force: :cascade do |t|
-    t.string "title"
-    t.text "text"
-    t.integer "author_id"
-    t.integer "view_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string "data_file_name", null: false
     t.string "data_content_type"
@@ -70,86 +52,19 @@ ActiveRecord::Schema.define(version: 2019_05_04_000111) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
-  create_table "game_comments", force: :cascade do |t|
-    t.integer "commenter_id"
-    t.text "body"
-    t.integer "game_post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_post_id"], name: "index_game_comments_on_game_post_id"
-  end
-
-  create_table "game_posts", force: :cascade do |t|
-    t.string "title"
-    t.text "text"
-    t.integer "author_id"
-    t.integer "view_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "humor_comments", force: :cascade do |t|
-    t.integer "commenter_id"
-    t.text "body"
-    t.integer "humor_post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["humor_post_id"], name: "index_humor_comments_on_humor_post_id"
-  end
-
-  create_table "humor_posts", force: :cascade do |t|
-    t.string "title"
-    t.text "text"
-    t.integer "author_id"
-    t.integer "view_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "issue_comments", force: :cascade do |t|
-    t.integer "commenter_id"
-    t.text "body"
-    t.integer "issue_post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["issue_post_id"], name: "index_issue_comments_on_issue_post_id"
-  end
-
-  create_table "issue_posts", force: :cascade do |t|
-    t.string "title"
-    t.text "text"
-    t.integer "author_id"
-    t.integer "view_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "news_comments", force: :cascade do |t|
-    t.integer "commenter_id"
-    t.text "body"
-    t.integer "news_post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["news_post_id"], name: "index_news_comments_on_news_post_id"
-  end
-
-  create_table "news_posts", force: :cascade do |t|
-    t.string "title"
-    t.text "text"
-    t.integer "author_id"
-    t.integer "view_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "text"
     t.integer "author_id"
-    t.string "genre"
+    t.integer "genre_id"
     t.integer "view_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["genre_id"], name: "index_posts_on_genre_id"
   end
 
   create_table "users", force: :cascade do |t|

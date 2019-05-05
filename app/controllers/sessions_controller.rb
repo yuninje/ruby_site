@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
         if user && user.authenticate(params[:loginPW])
             session[:user_id] = user.id
             flash[:success] = 'Successfully login'
-            redirect_to :controller => "home", :action => 'index', :str => 'login success'
+            redirect_to genre_
         else
             flash[:warning] = 'login failed'
             redirect_to :controller => "home", :action => 'index', :str => 'login fail'

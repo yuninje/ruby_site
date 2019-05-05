@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :text
       t.integer :author_id
-      t.string :genre
+      t.references :genre, :foreign_key => true
       t.integer :view_count, default: 0
       t.timestamps
     end

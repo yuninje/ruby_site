@@ -1,4 +1,25 @@
 <%= javascript_include_tag Ckeditor.cdn_url%>
 <h1> 새 게시글 </h1>
 
-<%= render 'form', :post => @post%>
+<%= form_with(:model => [@genre, @post], :local => true) do |form|%>
+
+    <div class = "group">
+        <%= form.label(:genre) %><br>
+        <%= form.label(@genre.name)%>
+    </div>
+    <div class = "group">
+        <%= form.label(:Title) %><br>
+        <%= form.text_field(:title, :class => "form-control")%>
+    </div>
+
+    <div class = "group">
+        <%= form.label(:Text) %><br>
+        <%= form.cktext_area(:text, :class => "form-control")%>
+    </div>
+
+    <div class="actions">
+        <%= form.submit "post",:class => "btn btn-primary", :page => @page %>
+    </div>
+    <%= @page %>
+    
+<% end %>

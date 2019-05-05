@@ -12,60 +12,65 @@ class PostsController < ApplicationController
     @start_post_id = @total_post.to_i - (@page.to_i-1) * @post_per_page.to_i
   end
 
-  
-  def new
-    @post = Post.new
-    @post.genre = params[:genre]
-  end
-
-  def create
-    @post = Post.new(post_params)
-    @post.author_id = current_user.id
-
-    if @post.save
-      redirect_to :controller => "posts", :action => "show", :post_id => @post.id, :page => 1
-    end
-  end
-
-  def edit
-    @post = Post.find(params[:post_id])
-  end
-
-  def update
-    @post = Post.find(params[:id])
-    if @post.update(post_params)
-      redirect_to :controller => "posts", :action => "show", :post_id => @post.id, :page => 1
-    end
-  end
-
-  def destroy
-    @post = Post.find(params[:post_id])
-    genre = params[:genre]
-    page = params[:page]
-    @post.destroy
-
-    redirect_to :controller => "posts", :action => "index", :genre => genre, :page => page
-  end
-
   def show
-    @post = Post.find(params[:post_id])
+    @genre_id = params[:genre_id]
+    @page_id = params[:page_id]
+    @genre = Genre.find(@genre_id)
+    @post = Post.find(params[:id])
     @post_author = User.find(@post.author_id)
+    
     @comments = Comment.where(:post_id => @post.id)
     @post.view_count += 1
     @post.save
 
-    unless @page = params[:page]
-      @page = 1
-    end
-
-    unless @search = params[:search]
-      @genre = @post.genre
-    end
-
     calculate_page
-    
-    @start_post_id = @total_post.to_i - (@page.to_i-1) * @post_per_page.to_i
+    @start_post_id = @total_post.to_i - (@page_id.to_i-1) * @post_per_page.to_i
   end
+
+  
+  def new
+    @genre = Genre.find(params[:genre_id])
+    @post = @genre.posts.new
+  end
+
+  def create
+    @genre = Genre.find(params[:genre_id])
+    @post = @genre.posts.new(post_params)
+    @post.author_id = current_user.id
+
+    @genre_id = params[:genre_id]
+    @page_id = 1
+
+    if @post.save
+      redirect_to genre_page_post_path(@genre_id,@page_id,@post)
+    end
+  end
+
+  def edit
+    @genre = Genre.find(params[:genre_id])
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @genre = Genre.find(params[:genre_id])
+    @post = Post.find(params[:id])
+    @post.update(post_params)
+    @genre_id = params[:genre_id]
+    @page_id = 1
+
+    redirect_to genre_page_post_path(@genre_id,@page_id,@post)
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+
+    @genre_id = params[:genre_id]
+    @page_id = 1
+    redirect_to genre_page_path(@genre_id, @page_id)
+  end
+
+  
 
   def search
     @search = params[:search]
@@ -75,39 +80,31 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:genre, :text, :title)
+      params.require(:post).permit(:genre, :title, :text)
     end
 
     def calculate_page
-      @post_per_page = 5
-      @page_per_sheet = 5
+      @post_per_page = 2
+      @page_per_sheet = 2
   
-      offset = (@page.to_i-1) * @post_per_page
+      offset = (@page_id.to_i-1) * @post_per_page
       
-      @first_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
-      @last_page = (@page.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
+      @first_page = (@page_id.to_i - 1) / @page_per_sheet * @page_per_sheet + 1
+      @last_page = (@page_id.to_i - 1) / @page_per_sheet * @page_per_sheet + @page_per_sheet
       
-      if @genre
-        @total_post = Post.where(:genre => @genre).count
-      elsif @search
-        @total_post = Post.where('title Like ?', "%#{@search}%").count
-      end
+      @total_post = Post.where(:genre_id => @genre_id).count
       
       if @total_post.to_i % @post_per_page == 0
-        @total_page = @total_post.to_i / @post_per_page
+      @total_page = @total_post.to_i / @post_per_page
       else
-        @total_page = @total_post.to_i / @post_per_page + 1
+      @total_page = @total_post.to_i / @post_per_page + 1
       end
   
       if @total_page <= @last_page.to_i
-        @last_page = @total_page
+          @last_page = @total_page
       end
   
       # offset ~ offset + post_per_page -1 가져오기
-      if @genre
-        @posts = Post.where(:genre => @genre).limit(@post_per_page).offset(offset).order(:id => :desc)
-      elsif @search
-        @posts = Post.where('title Like ?', "%#{@search}%").limit(@post_per_page).offset(offset).order(:id => :desc)
-      end
+      @posts = Post.where(:genre_id => @genre_id).limit(@post_per_page).offset(offset).order(:id => :desc)
     end
 end
