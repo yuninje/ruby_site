@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   mount Ckeditor::Engine => '/ckeditor'
   
-  resources :genres, param: :name do 
+  resources :genres do 
     resources :pages do
       resources :posts, only: [:show]
     end
