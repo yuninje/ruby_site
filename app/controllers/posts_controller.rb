@@ -122,6 +122,6 @@ class PostsController < ApplicationController
   
       # offset ~ offset + post_per_page -1 가져오기
       @posts = @total_post.limit($post_per_page).offset(offset).order(:id => :desc)
-      @start_post_id = @total_post_count.to_i - (@page.to_i-1) * $post_per_page.to_i
+      @start_post_id = @total_post_count.to_i - (@page_id.to_i-1) * $post_per_page.to_i
     end
 end
