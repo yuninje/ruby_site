@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
     def show
-        @genre = Genre.find(params[:genre_id])
-        @genre_id = params[:genre_id]
+        @genre = Genre.find_by(:name => params[:genre_name])
+        @genre_id = @genre.id
         @page_id = params[:id]
         calculate_page
         @start_post_id = @total_post.to_i - (@page_id.to_i-1) * $post_per_page.to_i

@@ -5,6 +5,6 @@
 <%= render 'show_genre_index_form'%>
 <div class="text-right">
     <% if current_user %>
-        <%= link_to "New", new_genre_post_path(@genre_id) %>
+        <%= link_to "New", new_genre_post_path(@genre.name) %>
     <% end%>
 </div>

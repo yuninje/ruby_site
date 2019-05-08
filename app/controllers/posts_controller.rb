@@ -26,9 +26,9 @@ class PostsController < ApplicationController
 
       calculate_page
     else
-      @genre_id = params[:genre_id]
+      @genre = Genre.find_by(:name => params[:genre_name])
+      @genre_id = @genre.id
       @page_id = params[:page_id]
-      @genre = Genre.find(@genre_id)
       @post = Post.find(params[:id])
       @post_id = @post.id
       @post_author = User.find(@post.author_id)
@@ -42,45 +42,43 @@ class PostsController < ApplicationController
 
   
   def new
-    @genre = Genre.find(params[:genre_id])
+    @genre = Genre.find_by(:name => params[:genre_name])
+    @genre_id = @genre.id
     @post = @genre.posts.new
   end
 
   def create
-    @genre = Genre.find(params[:genre_id])
+    @genre = Genre.find(params[:genre_name])
     @post = @genre.posts.new(post_params)
     @post.author_id = current_user.id
-
-    @genre_id = params[:genre_id]
     @page_id = 1
 
     if @post.save
-      redirect_to genre_page_post_path(@genre_id,@page_id,@post)
+      redirect_to genre_page_post_path(@genre.name,@page_id,@post)
     end
   end
 
   def edit
-    @genre = Genre.find(params[:genre_id])
+    @genre = Genre.find_by(:name => params[:genre_name])
+  @genre_id = @genre.id
     @post = Post.find(params[:id])
   end
 
   def update
-    @genre = Genre.find(params[:genre_id])
+    @genre = Genre.find(params[:genre_name])
     @post = Post.find(params[:id])
     @post.update(post_params)
-    @genre_id = params[:genre_id]
     @page_id = 1
 
-    redirect_to genre_page_post_path(@genre_id,@page_id,@post)
+    redirect_to genre_page_post_path(@genre.name,@page_id,@post)
   end
 
   def destroy
+    @genre = Genre.find_by(:name => params[:genre_name])
     @post = Post.find(params[:id])
     @post.destroy
-
-    @genre_id = params[:genre_id]
     @page_id = 1
-    redirect_to genre_page_path(@genre_id, @page_id)
+    redirect_to genre_page_path(@genre.name, @page_id)
   end
 
   def search

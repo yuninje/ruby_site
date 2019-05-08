@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
     def create
-        @genre_id = params[:genre_id]
+        @genre = Genre.find_by(:name => params[:genre_name])
+        @genre_id = @genre.id
         @post_id = params[:post_id]
-        @genre = Genre.find(@genre_id)
         @post = Post.find(@post_id)
         @comment = @post.comments.new(comment_params)
         @comment.commenter_id = current_user.id
@@ -12,7 +12,8 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-        @genre_id = params[:genre_id]
+        @genre = Genre.find_by(:name => params[:genre_name])
+        @genre_id = @genre.id
         @post_id = params[:post_id]
 
 

@@ -3,7 +3,7 @@
     <ul class="nav justify-content-center">
         <% $genres.each do |genre| %>
             <li class="nav-item">
-                <%= link_to genre.name, genre_page_path(genre.id,1), :class => "nav-link text-white"%>
+                <%= link_to genre.name, genre_page_path(genre.name,1), :class => "nav-link text-white"%>
             </li>
         <%end%>
     </ul>
