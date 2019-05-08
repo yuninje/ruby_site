@@ -5,6 +5,7 @@ class GenresController < ApplicationController
         @str = params[:str]
         @page = 1
         if !$flag
+            Genre.delete_all
             Genre.create(:name => "humor")
             Genre.create(:name => "game")
             Genre.create(:name => "news")

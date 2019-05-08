@@ -18,8 +18,7 @@ class PostsController < ApplicationController
       @post.save
 
       calculate_page
-    else
-      @search = params[:search]
+    elsif @search = params[:search]
       @page = params[:page]
       @post_id = params[:post_id]
       @post = Post.find(@post_id)
