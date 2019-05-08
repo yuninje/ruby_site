@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    redirect_to :controller => "home", :action => "index", :str => 'user create success'
+    redirect_to :controller => "genres", :action => "index", :str => 'user create success'
   end
 
   def edit
@@ -25,9 +25,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(current_user.id)
     if @user.update(user_params)
-      redirect_to :controller => "home", :action => "index", :str => "user update success"
+      redirect_to :controller => "genres", :action => "index", :str => "user update success"
     else
-      redirect_to :controller => "home", :action => "index", :str => "user update fail"
+      redirect_to :controller => "genres", :action => "index", :str => "user update fail"
     end
   end
 
