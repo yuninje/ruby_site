@@ -1,16 +1,15 @@
 $genre = Genre.all
+$flag = false
 class GenresController < ApplicationController
-    @@a = 0
     def index
         @str = params[:str]
-        $genre = Genre.all
-        if @@a == 0
+        if !$flag
         Genre.create(:name => "Humor")
         Genre.create(:name => "Game")
         Genre.create(:name => "News")
         Genre.create(:name => "Issue")
         Genre.create(:name => "Animal")
-        @@a = 1
+        $flag = true
         end
     end
 end
