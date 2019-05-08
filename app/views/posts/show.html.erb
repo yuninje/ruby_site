@@ -25,7 +25,8 @@
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
 
-                <%= form_with(model: [ @genre,@post, Comment.new ], local: true, :commenter_id => current_user.id) do |form| %>
+                <%= form_with(model: [ @genre,@post, Comment.new ], local: true) do |form| %>
+                    <%= hidden_field_tag :page, @page %>
                     <div class="form-group">
                         <%= form.text_area :body, :class => "form-control", :rows => "3"%>
                     </div>
@@ -52,7 +53,7 @@
                     <a><%= comment.created_at.localtime.strftime("%Y-%m-%d %H:%M")%></a>
                     <% if current_user %>
                         <% if current_user.id == @commenter.id%>
-                            <a> <%= link_to "delete", {:controller => "comments", :action => "destroy", :comment_id => comment.id, :post_id => @post.id, :page => @page} %></a>
+                            <a> <%= link_to "delete", genre_post_comment_path(@genre.name,@post_id,comment.id,:page => @page) %></a>
                         <% end%>
                     <%end%>
                 </div>
@@ -63,7 +64,7 @@
 
 <% if current_user%>
     <% if @post.author_id == current_user.id%>
-        <%= link_to "edit", edit_genre_post_path(@genre.name,@post)%>
+        <%= link_to "edit", edit_genre_post_path(@genre.name,@post, :page => @page)%>
         <%= link_to "delete", genre_post_path(@genre.name,@post), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <% end %>
 <% end %>
@@ -72,9 +73,9 @@
 
 
 <% if @search %>
-    <%= render 'show_search_index_form'%>
+    <%= render 'search_posts_list'%>
 <% elsif @my_activity%>
-    <%= render 'users/mypost_list_form'%>
+    <%= render 'users/myposts_list'%>
 <% else%>
-    <%= render 'pages/show_genre_index_form'%>
+    <%= render 'posts_list'%>
 <% end%>

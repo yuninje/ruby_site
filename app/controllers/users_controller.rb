@@ -32,10 +32,10 @@ class UsersController < ApplicationController
   end
 
   def my_posts
-    @page_id = params[:page]
+    @page = params[:page]
 
     get_my_posts
-    @start_post_id = @total_post_count.to_i - (@page_id.to_i-1) * $post_per_page.to_i
+    @start_post_id = @total_post_count.to_i - (@page.to_i-1) * $post_per_page.to_i
   end
 
   private
@@ -45,10 +45,10 @@ class UsersController < ApplicationController
 
     def get_my_posts
   
-      @offset = (@page_id.to_i-1) * $post_per_page
+      @offset = (@page.to_i-1) * $post_per_page
       
-      @first_page = (@page_id.to_i - 1) / $page_per_sheet * $page_per_sheet + 1
-      @last_page = (@page_id.to_i - 1) / $page_per_sheet * $page_per_sheet + $page_per_sheet
+      @first_page = (@page.to_i - 1) / $page_per_sheet * $page_per_sheet + 1
+      @last_page = (@page.to_i - 1) / $page_per_sheet * $page_per_sheet + $page_per_sheet
       
       total_posts = Post.where(:author_id => current_user.id)
       @total_post_count = total_posts.count

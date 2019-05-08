@@ -1,17 +1,6 @@
-<h1 > <%= @genre %> 게시판</h1>
-
-<% if @page%>
-    <div class ="text-right">
-        <%= select_tag(:sort, options_for_select([['Date','Date'],
-            ['Good','Good'], ['View','View']])) %>
-    </div>
-    <%= render 'show_genre_index_form'%>
-    <div class="text-right">
-        <% if current_user %>
-            <%= link_to "New", :controller => "posts", :action => "new", :genre => @genre%>
-        <% end%>
-    </div>
-<% else %>
-    <%= render 'show_best50_form'%>
-<%end%>
-
+<%= render 'posts_list'%>
+<div class="text-right">
+    <% if current_user %>
+        <%= link_to "New", new_genre_post_path(@genre.name) %>
+    <% end%>
+</div>

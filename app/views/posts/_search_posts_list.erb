@@ -1,8 +1,9 @@
-<h3><%= Genre.find(@genre_id).name%></h3>
+<h1> search : <%= @search %></h1>
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col" class="text-center">#</th>
+      <th scope="col" class="text-center">Genre</th>
       <th scope="col" class="text-center">Title</th>
       <th scope="col" class="text-center">Author</th>
       <th scope="col" class="text-center">Date</th>
@@ -17,8 +18,8 @@
       <% else%>
         <tr>
       <%end%>
-        <th scope="col" class="text-center"> <%= @start_post_id %></th>
-        <td scope="col" class="text-center"> <%= link_to post.title, genre_page_post_path(@genre.name,@page_id,post.id) %></td>
+        <th scope="col" class="text-center"> <%= Genre.find(post.genre_id).name %></th>
+        <td scope="col" class="text-center"> <%= link_to post.title, :controller => "posts", :action => "show",:search => @search, :page => @page, :post_id => post.id %></td>
         <td scope="col" class="text-center"> <%= User.find(post.author_id).user_id %> </td>
         <td scope="col" class="text-center"> <%= post.created_at.localtime.strftime("%Y-%m-%d") %> </td>
         <td scope="col" class="text-center"> <%= post.view_count %> </td>
@@ -29,15 +30,15 @@
 </table>
 
 <% if @first_page > 1%>
-  <%= link_to "<" , genre_page_path(@genre.name,@first_page.to_i - @page_per_sheet)%>
+  <%= link_to "<" , {:controller => "posts", :action => "search",:search => @search, :page => @first_page.to_i - @page_per_sheet}%>
 <%end%>
-<% for page_id in @first_page..@last_page%>
-  <% if page_id == @page_id.to_i%>
-    <%= link_to (raw "<strong>#{page_id}</strong>") , genre_page_path(@genre_id,page_id)%>
+<% for page in @first_page..@last_page%>
+  <% if page == @page.to_i%>
+    <%= link_to (raw "<strong>#{page}</strong>") , {:controller => "posts", :action => "search", :search => @search, :page => page}%>
   <% else%>
-    <%= link_to page_id ,genre_page_path(@genre.name,page_id)%>
+    <%= link_to page , {:controller => "posts", :action => "search",:search => @search, :page => page}%>
   <% end%>
 <% end%>
 <% if @last_page < @total_page%>
-  <%= link_to ">" , genre_page_path(@genre.name,@last_page.to_i+1)%>
+  <%= link_to ">" , {:controller => "posts", :action => "search",:search => @search,  :page=> (@last_page.to_i+1)}%>
 <%end%>
